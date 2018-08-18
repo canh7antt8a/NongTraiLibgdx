@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <string name="app_name">Nông trại vui vẻ</string>
+        <string name="menu_settings">Cài đặt</string>
+        <string name="title_activity_main">Nông trại vui vẻ</string>
+        <!-- Thanh toán -->
+
+        <string name="buy_game_text_1">Bạn có muốn mua 30.000 xu bằng tin nhắn giá
+15.000 đồng không?\nHoặc nhấn "khác" để được mua ưu đãi hơn!</string>
+
+        <string name="title_m">Thông tin</string>
+        <string name="message_mc_title">Bạn không đủ tiền</string>
+        <string name="message_mx_title">Bạn không đủ xu. Bạn có muốn mua xu không ?</string>
+
+        <string name="payment_title">Chọn hình thức thanh toán</string>
+        <string name="payment_other">Thanh toán ưu đãi khác</string>
+        <!-- Thông báo hỏi wap charging -->
+        <string name="buy_game_text_web">Bạn có muốn mua 30.000 xu bằng 15.000
+đồng trong tài khoản điện thoại của mình không?\nNhấn "khác" để được mua ưu
+đãi hơn!</string>
+        <string name="payment_do_scratch">Nạp thẻ</string>
+        <string name="payment_description_coupon">Nhập mã số quà tặng để được hưởng ưu
+đãi dịch vụ</string>
+        <string name="payment_title_coupon">Thẻ quà tặng</string>
+        <string name="payment_description_scratch" formatted="false">Đổi xu bằng thẻ
+cào&lt;br>
+20.000đ - 44.000xu &lt;font color=#00ff00>(+10%)&lt;/font>&lt;br>
+50.000đ - 115.000xu &lt;font color=#00ff00>(+15%)&lt;/font>&lt;br>
+100.000đ - 240.000xu &lt;font color=#00ff00>(+20%)&lt;/font>&lt;br>
+200.000đ - 500.000xu &lt;font color=#00ff00>(+25%)&lt;/font>&lt;br>
+500.000đ - 1.300.000xu &lt;font color=#00ff00>(+30%)&lt;/font></string>
+        <string name="payment_title_scratch">Nạp thẻ cào</string>
+        <string name="payment_success_coupon">Nạp thẻ quà tặng thành công!</string>
+        <string name="payment_failure_coupon">Nạp thẻ quà tặng thất bại!</string>
+        <string name="payment_success_scratch">Nạp thẻ cào thành công!</string>
+        <string name="payment_failure_scratch">Nạp thẻ cào thất bại!</string>
+        <string name="payment_success_sms">Gửi tin nhắn thành công!</string>
+        <string name="payment_failure_sms">Gửi tin nhắn thất bại!</string>
+        <string name="payment_label_coupon_code">Mã số</string>
+        <string name="payment_label_coupon_hint">Nhập mã số thẻ quà tặng</string>
+        <string name="payment_label_coupon_description">Nhập mã số thẻ quà tặng để
+được hưởng ưu đãi dịch vụ</string>
+        <string name="payment_label_scratch_code">Mã số</string>
+        <string name="payment_label_scratch_code_hint">Nhập mã số thẻ cào</string>
+        <string name="payment_label_scratch_seri">Số seri</string>
+        <string name="payment_label_scratch_seri_hint">Nhập số seri in trên thẻ</string>
+        <string name="payment_label_scratch_operator">Loại thẻ</string>
+        <string name="payment_label_card_info">Thông tin thẻ nạp:</string>
+        <string name="confirm_dialog_title">Xác nhận</string>
+        <string name="exit_app_dialog_message">Bạn có muốn mua game với 30.000 xu để tắt quảng cáo không ?</string>
+        <string name="quit_game_dialog_message">Bạn có chắc chắn muốn thoát game đang
+chơi không?</string>
+        <string name="about_title">Sunnet ITC phát hành!</string>
+
+        <!-- Điền tên coder và đồ họa tương ứng với từng game -->
+        <string name="about_message">Web: http://android.qplay.vn\nCSKH
++84.4.3.576.6085\nEmail: cskh@sunnet.vn
+\nPhát triển: Bùi Quang Thành\nĐồ họa: Nguyễn Thị Hoài Thu\nĐạo diễn: Nguyễn Kì Linh\nTester: Võ Thu Trang</string>
+        <string name="title_share">Chia sẻ game</string>
+        <string name="message_share_title">Bạn có muốn giới thiệu game này cho người
+thân không?</string>
+        <string name="message_share_subject">Chơi game này đi, game này hay lắm</string>
+        <string name="message_share_content"> </string>
+        <string name="title_download">Tải hot game</string>
+        <string name="message_download_title">Bạn có muốn tải hot game khác không?</string>
+        <string name="LS_OTHER_GAME">Game khác</string>
+        <string name="LS_CLOSE">Đóng</string>
+        <string name="yes">Có</string>
+        <string name="no">Không</string>
+    </resources>
