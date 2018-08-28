@@ -1,6 +1,7 @@
 package vn.sunnet.game.farm.object;
 
 import vn.sunnet.game.farm.assets.Audio;
+import vn.sunnet.game.farm.nature.F;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -28,7 +29,7 @@ public class Experience {
 			pos = new Vector2(120 + 210 * ((id%12)%4), 481 - 153 * ((id%12)/4));
 			name += "exp";
 		} else {
-			font = new BitmapFont(Gdx.files.internal("data/font/font-hoan-chinh.fnt"), false);
+			font = new BitmapFont(Gdx.files.internal(F.strFontNormal), false);
 			pos = new Vector2(1030, 200 + 155 * id);
 		}
 		

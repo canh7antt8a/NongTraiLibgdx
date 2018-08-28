@@ -1,5 +1,6 @@
 package vn.sunnet.game.farm.Actor;
 
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.nature.SeedNature;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -25,7 +26,7 @@ public class RButton extends WButton {
 			name = SeedNature.frname[kind];
 			break;
 		case 2:
-			name = "Nước thần"; 
+			name = Language.General.NUOC_THAN.getStr();//"Nước thần";
 			System.out.println("Kind: " + kind);
 			break;
 		}

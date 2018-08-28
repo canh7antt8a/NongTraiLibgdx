@@ -2,13 +2,17 @@ package vn.sunnet.game.stage;
 
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.nature.F;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -20,25 +24,31 @@ public class GuideLine {
 	private Stage stage;
 	private boolean gc = false;
 	private int index = 0;
-	
+
+	private BitmapFont fontTitle;
+	private BitmapFont font;
 	public GuideLine(Stage sta) {
 		stage = new Stage();
 		stage.setViewport(sta.getViewport());
 		background = new Texture[2];
 		for(int i = 0; i < 2; i++) {
-//			background[i] = Assets.manager.get("data/guide/huong-dan-" + i + ".png", Texture.class);//new Texture(Assets.resolver.resolve("data/guide/huong-dan-" + i + ".png"));
 			background[i] = new Texture(Gdx.files.internal("data/guide/huong-dan-" + i + ".png"));
 		}
+
+		fontTitle = new BitmapFont(Gdx.files.internal(F.strFontNormal));
+        fontTitle.setColor(Color.RED);
+		fontTitle.getData().setScale(1.75f);
+
+		font = new BitmapFont(Gdx.files.internal(F.strFontNormal));
+		font.setColor(Color.WHITE);
+		font.getData().setScale(.9f);
 		
 		next = createButton("data/texture/mui-ten-phai-0.png");
-//		next.setPosition(770, 280);
         next.setPosition(1040, 335);
 		prev = createButton("data/texture/mui-ten-trai-0.png");
-//		prev.setPosition(180, 280);
         prev.setPosition(240, 335);
 
         close = createButton("data/texture/close.png");
-//		close.setPosition(780, 430);
         close.setPosition(1084, 614);
 
 		stage.addActor(next);
@@ -48,7 +58,6 @@ public class GuideLine {
 	}
 	
 	public Button createButton(String path) {
-//		Texture texture = Assets.manager.get(path, Texture.class);
 		Texture texture = new Texture(Gdx.files.internal(path));
 		TextureRegion[] region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
 		return new Button(new TextureRegionDrawable(region[0]), new TextureRegionDrawable(region[1]), 
@@ -58,10 +67,39 @@ public class GuideLine {
 	public void render(SpriteBatch batch) {
 		batch.begin();
 		batch.draw(background[index], 140, 16);
+
+		fontTitle.draw(batch, Language.General.HUONG_DAN.getStr(), 580, 700);
+		if(index == 0){
+//			group1.setVisible(true);
+//			group2.setVisible(false);
+
+			guide1(batch);
+		}else{
+//			group1.setVisible(false);
+//			group2.setVisible(true);
+
+			guide2(batch);
+		}
 		batch.end();
 		
 		stage.draw();
 		updateButton();
+	}
+
+	public void guide1(SpriteBatch batch){
+        font.draw(batch, Language.General.HUONG_DAN_1.getStr(), 440, 610);
+        font.draw(batch, Language.General.HUONG_DAN_2.getStr(), 440, 530);
+        font.draw(batch, Language.General.HUONG_DAN_3.getStr(), 440, 430);
+        font.draw(batch, Language.General.HUONG_DAN_4.getStr(), 500, 340);
+        font.draw(batch, Language.General.HUONG_DAN_5.getStr(), 500, 270);
+        font.draw(batch, Language.General.HUONG_DAN_6.getStr(), 500, 170);
+	}
+
+	public void guide2(SpriteBatch batch){
+        font.draw(batch, Language.General.HUONG_DAN_7.getStr(), 470, 600);
+        font.draw(batch, Language.General.HUONG_DAN_8.getStr(), 470, 450);
+        font.draw(batch, Language.General.HUONG_DAN_9.getStr(), 580, 340);
+        font.draw(batch, Language.General.HUONG_DAN_10.getStr(), 410, 180);
 	}
 	
 	public void updateButton() {		
@@ -70,8 +108,8 @@ public class GuideLine {
 			Audio.btnClick.play(Audio.soundVolume);
 			if(index < 1) {
 				index ++;
-//				next.setDisabled(true);
-//				prev.setDisabled(false);
+
+                font.setColor(Color.BLACK);
 			}
 		}
 		
@@ -80,9 +118,7 @@ public class GuideLine {
 			Audio.btnClick.play(Audio.soundVolume);
 			if(index > 0) {
 				index --;
-
-//				next.setDisabled(false);
-//				prev.setDisabled(true);
+                font.setColor(Color.WHITE);
 			}
 		}
 		

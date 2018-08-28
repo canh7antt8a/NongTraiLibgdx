@@ -12,6 +12,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 
 
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.main.Farm;
 import vn.sunnet.game.farm.nature.F;
 import vn.sunnet.game.farm.screen.MenuScreen;
@@ -19,6 +20,8 @@ import vn.sunnet.game.farm.screen.Payment;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class AndroidPayment extends AndroidApplication implements Payment, Payment.OnPaymentListener {
     public static final int EXIT_DIALOG = 0;
@@ -108,31 +111,27 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
         switch (id) {
             case EXIT_DIALOG:
                 AlertDialog.Builder alertboxExit = new AlertDialog.Builder(this);
-                alertboxExit.setTitle(getResources().getString(
-                        R.string.confirm_dialog_title));
-                alertboxExit.setMessage(getResources().getString(
-                        R.string.exit_app_dialog_message));
-                alertboxExit.setNeutralButton(getResources()
-                                .getString(R.string.yes),
+                alertboxExit.setTitle(Language.General.Accept.getStr());
+                alertboxExit.setMessage(Language.General.BUY_GAME.getStr());
+                alertboxExit.setNeutralButton(Language.General.YES.getStr(),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
                                 if(F.money >= 30000) {
                                     F.money -= 30000;
-                                    onToast("Chúc mừng bạn đã mua game thành công !", 1);
+                                    onToast(Language.General.BUY_GAME_OFF_AD.getStr(), 1);
                                     Data.hideAdview();
                                     MenuScreen.isShowAd = false;
                                     onQuit();
                                 } else {
                                     onRequestPayment();
-                                    onToast("Bạn không đủ xu để mua game !", 1);
+                                    onToast(Language.General.KHONG_DU_XU_MUA_.getStr(), 1);
                                 }
 
                                 Farm.buyGame = true;
                             }
                         });
 
-                alertboxExit.setNegativeButton(getResources()
-                        .getString(R.string.no), new DialogInterface.OnClickListener() {
+                alertboxExit.setNegativeButton(Language.General.NO.getStr(), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
                         onQuit();
                     }
@@ -147,29 +146,29 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
                 alertboxInfo.setMessage(getResources().getString(
                         R.string.about_message));
                 alertboxInfo.setNeutralButton(
-                        getResources().getString(R.string.LS_OTHER_GAME),
+                        Language.General.GAME_OTHER.getStr(),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
 //                                core.param.openDownloadLink(AndroidPayment.this);
                             }
                         });
                 alertboxInfo.setNegativeButton(
-                        getResources().getString(R.string.LS_CLOSE), null);
+                        Language.General.CLOSE.getStr(), null);
 
                 return alertboxInfo.create();
             case SHARE_DIALOG:
                 AlertDialog.Builder alertboxShare = new AlertDialog.Builder(this);
-                alertboxShare.setTitle(R.string.title_share);
-                alertboxShare.setMessage(R.string.message_share_title);
+                alertboxShare.setTitle(Language.General.SHARE_GAME.getStr());
+                alertboxShare.setMessage(Language.General.SHARE_GAME_USER.getStr());
                 alertboxShare.setCancelable(false);
-                alertboxShare.setPositiveButton(R.string.yes,
+                alertboxShare.setPositiveButton(Language.General.YES.getStr(),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 //                                core.param.openShareDialog(	getString(R.string.title_share),
 //                                        getString(R.string.message_share_subject), getString(R.string.message_share_content));
 
                             }
-                        }).setNegativeButton(R.string.no,
+                        }).setNegativeButton(Language.General.NO.getStr(),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -178,15 +177,15 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
                 return alertboxShare.create();
             case DOWNLOAD_DIALOG:
                 AlertDialog.Builder alertboxDowload = new AlertDialog.Builder(this);
-                alertboxDowload.setTitle(R.string.title_download);
-                alertboxDowload.setMessage(R.string.message_download_title);
+                alertboxDowload.setTitle(Language.General.DOWNLOAD_HOT_GAME.getStr());
+                alertboxDowload.setMessage(Language.General.WANT_DOWNLOAD_HOT_GAME.getStr());
                 alertboxDowload.setCancelable(false);
-                alertboxDowload.setPositiveButton(R.string.yes,
+                alertboxDowload.setPositiveButton(Language.General.YES.getStr(),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 //                                core.param.openDownloadLink(AndroidPayment.this);
                             }
-                        }).setNegativeButton(R.string.no,
+                        }).setNegativeButton(Language.General.NO.getStr(),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -196,10 +195,10 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
 
             case MCDIALOG:
                 AlertDialog.Builder mcDialog = new AlertDialog.Builder(this);
-                mcDialog.setTitle(R.string.title_m);
-                mcDialog.setMessage(R.string.message_mc_title);
+                mcDialog.setTitle(Language.General.Information.getStr());
+                mcDialog.setMessage(Language.General.NOT_ENOUGH_MONEY.getStr());
                 mcDialog.setCancelable(false);
-                mcDialog.setPositiveButton("Đóng",
+                mcDialog.setPositiveButton(Language.General.CLOSE.getStr(),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -209,15 +208,15 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
 
             case MXDIALOG:
                 AlertDialog.Builder mxDialog = new AlertDialog.Builder(this);
-                mxDialog.setTitle(R.string.title_m);
-                mxDialog.setMessage(R.string.message_mx_title);
+                mxDialog.setTitle(Language.General.Information.getStr());
+                mxDialog.setMessage(Language.General.NOT_ENOUGH_DIAMON.getStr());
                 mxDialog.setCancelable(false);
-                mxDialog.setPositiveButton(R.string.yes,
+                mxDialog.setPositiveButton(Language.General.YES.getStr(),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 onRequestPayment();
                             }
-                        }).setNegativeButton(R.string.no,
+                        }).setNegativeButton(Language.General.NO.getStr(),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -227,12 +226,9 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
 
             case QUIT_DIALOG:
                 AlertDialog.Builder alertboxQuit = new AlertDialog.Builder(this);
-                alertboxQuit.setTitle(getResources().getString(
-                        R.string.confirm_dialog_title));
-                alertboxQuit.setMessage(getResources().getString(
-                        R.string.quit_game_dialog_message));
-                alertboxQuit.setNeutralButton(getResources()
-                                .getString(R.string.yes),
+                alertboxQuit.setTitle(Language.General.Accept.getStr());
+                alertboxQuit.setMessage(Language.General.EXIT_GAME.getStr());
+                alertboxQuit.setNeutralButton(Language.General.YES.getStr(),
                         new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface arg0, int arg1) {
@@ -242,8 +238,7 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
                             }
                         });
 
-                alertboxQuit.setNegativeButton(getResources()
-                        .getString(R.string.no), new DialogInterface.OnClickListener() {
+                alertboxQuit.setNegativeButton(Language.General.NO.getStr(), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
@@ -251,6 +246,14 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
                 return alertboxQuit.create();
         }
         return null;
+    }
+
+    public String getCurrentLanguage(){
+//        Locale.ENGLISH
+//        Locale.KOREAN
+//        Locale.CHINESE
+//        Locale.KOREAN
+        return Locale.getDefault().getDisplayLanguage();
     }
 
     @Override
@@ -282,15 +285,15 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
 
     @Override
     public void onDialog(final String text) {
-        Gdx.app.log("Message", text);
+//        Gdx.app.log("Message", text);
 
         runOnUiThread(new Runnable(){
             @Override
             public void run() {
                 new AlertDialog.Builder(AndroidPayment.this)
-                        .setTitle(R.string.confirm_dialog_title)
+                        .setTitle(Language.General.Confirm.getStr())
                         .setMessage(text)
-                        .setPositiveButton("Đồng ý",
+                        .setPositiveButton(Language.General.Accept.getStr(),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.cancel();

@@ -4,6 +4,7 @@ import vn.sunnet.game.farm.Actor.SButton;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.main.Farm;
 import vn.sunnet.game.farm.nature.F;
 import vn.sunnet.game.farm.nature.SeedNature;
@@ -24,7 +25,7 @@ public class Shop {
 	private final int FLOWER = 0, FRUIT = 1, TOOL = 2;
 	private Stage stage, stage2, stage3;
 	private Texture shop, frame1, frame2;
-	private BitmapFont font1, font2, font3, font4;
+	private BitmapFont font1, font2, font3, font4, fontTitle;
 	private SButton[] flower, fruit, tool;
 	private Button btn_money, btn_coins, btn_money_, btn_coins_;
 	private int type, kind, gcost, xcost, value, experience, growth_time, lvUnlock;
@@ -50,6 +51,8 @@ public class Shop {
 	    font3 = Assets.manager.get("data/font/cua-hang.fnt", BitmapFont.class);
 	    font4 = new BitmapFont(Gdx.files.internal("data/font/cua-hang.fnt"), false);
 	    font4.getData().setScale(0.5f);
+
+		fontTitle = new BitmapFont(Gdx.files.internal(F.strFontNormal), false);
 	    
 		shop = Assets.manager.get("data/shop/cua-hang.png", Texture.class);
 		frame1 = Assets.manager.get("data/shop/khung-thong-tin.png", Texture.class);
@@ -228,22 +231,22 @@ public class Shop {
 				case 0:
 					gcost = (int) (10000 * Math.ceil(F.level/10f));
 					xcost = gcost/10;
-					guide = "Thuê 1 nhân công tự động trồng trọt, chăn nuôi\n thu hoạch. Thuê trong 1 mùa";
+					guide =  Language.General.THUE_1_NHAN_CONG.getStr();//"Thuê 1 nhân công tự động trồng trọt, chăn nuôi\n thu hoạch. Thuê trong 1 mùa";
 					break;
 				case 1:
 					gcost = 300 * F.level;
 					xcost = gcost/10;
-					guide = "Thêm 1 chỗ bán nông phẩm trong 1 mùa";
+					guide =  Language.General.THEM_1_CHO_BAN.getStr();//"Thêm 1 chỗ bán nông phẩm trong 1 mùa";
 					break;
 				case 2:
 					gcost = 30000;
 					xcost = gcost/10;
-					guide = "Ngọc may mắn tăng thêm 20% \nkhả năng thành công";
+					guide =  Language.General.NGOC_MM_TANG_TC.getStr();//"Ngọc may mắn tăng thêm 20% \nkhả năng thành công";
 					break;
 				case 3:
 					gcost = 10000;
 					xcost = gcost/10;
-					guide = "Nếu nâng cấp vườn thất bại thì \nvườn không bị giảm cấp";
+					guide =  Language.General.NC_TB_VUONG_0_GIAM.getStr();//"Nếu nâng cấp vườn thất bại thì \nvườn không bị giảm cấp";
 					break;
 				}
 				

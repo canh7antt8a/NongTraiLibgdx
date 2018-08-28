@@ -1,27 +1,68 @@
 package vn.sunnet.game.farm.nature;
 
 
+import vn.sunnet.game.farm.assets.Language;
+
 public class SeedNature {
 
 	public static final int DONG_TIEN = 0, HOA_CAM_CHUONG = 1, HOA_SEN = 2, HYDRANGEA = 3, LILY = 4, 
 			LYLY_LOA_KEN = 5, POINSENTIA = 6, ROSE = 7, SUNFLOWER = 8, VIOLET = 9;
 	public static final int BI_NGO = 0, CA_CHUA = 1, CA_TIM = 2, CAM = 3, CHUOI = 4, CU_CAI = 5,
 			DUA_HAU = 6, NHO = 7, TAO = 8, XOAI = 9;
-	public static String flname[] = {"Hoa đồng tiền", "Hoa lily", "Hoa sen", "Hoa tú cầu", "Hoa cẩm chướng",
-		"Hoa lily loa ken", "Hoa trạng nguyên", "Hoa hồng", "Hoa hướng dương", "Hoa violet", "Hoa bồ công anh",
-		"Hoa tulip"};	
-	public static String flname_[] = {"Đồng tiền", "Lily", "Sen", "Tú cầu", "Cẩm chướng", "Lily loa ken",
-		"Trạng nguyên", "Hoa hồng", "Hướng dương", "Violet", "Bồ công anh", "Tulip"};
+	public static String flname[] = {
+			Language.General.HOA_DONG_TIEN.getStr()
+			, Language.General.HOA_LILY.getStr()
+			, Language.General.HOA_SEN.getStr()
+			, Language.General.HOA_TU_CAU.getStr()
+			, Language.General.HOA_CAM_CHUONG.getStr()
+			, Language.General.HOA_LILY_LOA_KEN.getStr()
+			, Language.General.HOA_TRANG_NGUYEN.getStr()
+			, Language.General.HOA_HONG.getStr()
+			, Language.General.HOA_HUONG_DUONG.getStr()
+			, Language.General.HOA_VIOLET.getStr()
+			, Language.General.HOA_BO_CONG_ANH.getStr(),
+			Language.General.HOA_TULIP.getStr()};
+	public static String flname_[] = {
+			Language.General.HOA_DONG_TIEN.getStr()
+			, Language.General.HOA_LILY.getStr()
+			, Language.General.HOA_SEN.getStr()
+			, Language.General.HOA_TU_CAU.getStr()
+			, Language.General.HOA_CAM_CHUONG.getStr()
+			, Language.General.HOA_LILY_LOA_KEN.getStr()
+			, Language.General.HOA_TRANG_NGUYEN.getStr()
+			, Language.General.HOA_HONG.getStr()
+			, Language.General.HOA_HUONG_DUONG.getStr()
+			, Language.General.HOA_VIOLET.getStr()
+			, Language.General.HOA_BO_CONG_ANH.getStr(),
+			Language.General.HOA_TULIP.getStr()};
+	//{"Đồng tiền", "Lily", "Sen", "Tú cầu", "Cẩm chướng", "Lily loa ken",
+//		"Trạng nguyên", "Hoa hồng", "Hướng dương", "Violet", "Bồ công anh", "Tulip"};
 	
-	public static String frname[] = {"Bí ngô", "Cà chua", "Cà tím", "Cam", "Chuối", "Củ cải trắng", "Dưa hấu", 
-		"Nho", "Táo", "Xoài", "Dâu tây", "Lê"};
+	public static String frname[] = {
+			Language.General.BI_NGO.getStr()
+			, Language.General.CA_CHUA.getStr()
+			, Language.General.CA_TIM.getStr()
+			, Language.General.CAM.getStr()
+			, Language.General.CHUOI.getStr()
+			, Language.General.CU_CAI_TRANG.getStr()
+			, Language.General.DUA_HAU.getStr()
+			, Language.General.NHO.getStr()
+			, Language.General.TAO.getStr()
+			, Language.General.XOAI.getStr()
+			, Language.General.DAU_TAY.getStr(),
+			Language.General.LE.getStr()};//{"Bí ngô", "Cà chua", "Cà tím", "Cam", "Chuối", "Củ cải trắng", "Dưa hấu",
+//		"Nho", "Táo", "Xoài", "Dâu tây", "Lê"};
 
 	public static String flower[] = {"dong-tien", "lily", "hoa-sen", "tu-cau", "cam-chuong",
 			"lily-loa-ken", "trang-nguyen", "hoa-hong", "huong-duong", "violet", "bo-cong-anh", "tulip"};
 	public static String fruit[] = {"bi-ngo", "ca-chua", "ca-tim", "cam", "chuoi", "cu-cai", "dua-hau", 
 			"nho", "tao", "xoai", "dau-tay", "le"};
 	public static String tool[] = {"nhan-cong", "ban", "ngoc-may-man", "giay-bao-dam"};
-	public static String tool_name[] = {"Nhân công", "Bàn bán nông sản", "Ngọc may mắn", "Giấy bảo đảm"};
+	public static String tool_name[] = {
+			Language.General.NHAN_CONG.getStr()
+			, Language.General.BAN_BAN_NONG_SAN.getStr()
+			, Language.General.NGOC_MAY_MAN.getStr()
+			, Language.General.GIAY_BAO_DAM.getStr()};//{"Nhân công", "Bàn bán nông sản", "Ngọc may mắn", "Giấy bảo đảm"};
 	public static String fertilizer[] = {"phan-bon-vang", "phan-bon-xanh", "phan-bon-do"};
 	
 	public static int index = 0;

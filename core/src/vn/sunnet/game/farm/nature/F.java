@@ -1,7 +1,9 @@
 package vn.sunnet.game.farm.nature;
 
+import vn.sunnet.game.farm.Actor.SButton;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -46,9 +48,24 @@ public class F {
 		return new Button(new TextureRegionDrawable(region[1]), new TextureRegionDrawable(region[0]), 
 				new TextureRegionDrawable(region[0]));
 	}
+
+//	public static SButton createButton(String name, String title, BitmapFont font) {
+//		Texture texture = Assets.manager.get(name, Texture.class);
+//		TextureRegion[] region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
+////		return new Button(new TextureRegionDrawable(region[1]), new TextureRegionDrawable(region[0]),
+////				new TextureRegionDrawable(region[0]));
+//
+//		return  new SButton(new TextureRegionDrawable(region[1]), new TextureRegionDrawable(region[0]), new TextureRegionDrawable(region[0]), title, font);
+//	}
 	
 	public static Texture[] flower, fruit;
 	public static BitmapFont font;
+
+    public static Language.LANGU language;
+    public static String strFontNormal = "data/font/font_normal.fnt";
+	public static void setLanguage(Language.LANGU lan){
+		language = lan;
+	}
 	
 	public static void load() {
 		flower = new Texture[12];
@@ -79,16 +96,5 @@ public class F {
 		}
 		
 		return n;
-	}
-
-	public static ObjectMap<String, String> objectMap;
-
-	public static void LoadText(){
-		Json json = new Json();
-		objectMap = json.fromJson(ObjectMap.class, Gdx.files.internal("data/textconfig/text_vi.json"));
-	}
-
-	public static String CCFS(String key){
-		return objectMap.get(key);
 	}
 }

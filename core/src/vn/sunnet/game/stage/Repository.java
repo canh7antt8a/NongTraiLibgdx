@@ -6,6 +6,7 @@ import vn.sunnet.game.farm.Actor.RButton;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.nature.F;
 import vn.sunnet.game.farm.nature.SeedNature;
 
@@ -48,7 +49,7 @@ public class Repository {
 	    
 	    font1 = new BitmapFont(Gdx.files.internal("data/font/kho-chua.fnt"), false);
 	    font1.getData().setScale(0.4f);
-	    font2 = Assets.manager.get("data/font/font-hoan-chinh.fnt", BitmapFont.class);
+	    font2 = Assets.manager.get(F.strFontNormal, BitmapFont.class);
 	    font3 = new BitmapFont(Gdx.files.internal("data/font/cua-hang.fnt"), false);
 	    font3.getData().setScale(0.8f);
 	    
@@ -98,7 +99,7 @@ public class Repository {
 	
 	public void render(SpriteBatch batch) {
 		batch.begin();
-		font2.draw(batch, "Kho chứa hạt giống", 0, 600, 1280, Align.center, false);
+		font2.draw(batch,  Language.General.KHO_CHUA_HAT_GIONG.getStr(), 0, 600, 1280, Align.center, false);
 		batch.draw(background, 0, 200);		
 		batch.end();
 		stage.draw();

@@ -2,14 +2,17 @@ package vn.sunnet.game.farm.screen;
 
 import java.util.Random;
 
+import vn.sunnet.game.farm.Actor.MyButton;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.main.Farm;
 import vn.sunnet.game.farm.nature.F;
 import vn.sunnet.game.farm.nature.SeedNature;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,9 +31,21 @@ public class Market extends BaseScreen {
 	private static final String array_market[] = {"chung-cu", "cong-vien", "cua-hang-cafe", "fastfood",
 		"khach-san", "kho-luong-thuc", "nha-ga", "nha-hang-nhat", "truong-hoc", "van-phong",
 		"vuon-hoa", "vuon-thu"};
-	private static final String market_name[] = {"Chung cư", "Công viên", "Cửa hàng Cafe",
-		"Cửa hàng Fastfood", "Khách sạn", "Kho lương thực", "Nhà ga", "Nhà hàng nhật", "Trường học",
-		"Văn phòng", "Vườn hoa", "Vườn thú"};
+	private static final String market_name[] = {
+			Language.General.CHUNG_CU.getStr()
+			,Language.General.CONG_VIEN.getStr()
+			,Language.General.CUA_HANG_CAFE.getStr()
+			,Language.General.CUA_HANG_FASTFOOD.getStr()
+			,Language.General.KHACH_SAN.getStr()
+			,Language.General.KHO_LUONG_THUC.getStr()
+			,Language.General.NHA_GA.getStr()
+			,Language.General.NHA_HANG_NHAT.getStr()
+			,Language.General.TRUONG_HOC.getStr()
+			,Language.General.VAN_PHONG.getStr()
+			,Language.General.VUON_HOA.getStr()
+			,Language.General.VUON_THU.getStr()};//{"Chung cư", "Công viên", "Cửa hàng Cafe",
+//		"Cửa hàng Fastfood", "Khách sạn", "Kho lương thực", "Nhà ga", "Nhà hàng nhật", "Trường học",
+//		"Văn phòng", "Vườn hoa", "Vườn thú"};
 
 	private final int maxComodity = 3;
 	private int market_cost, state, lvUnlock, nof_plot;
@@ -46,10 +61,11 @@ public class Market extends BaseScreen {
 //	private OrthographicCamera cam;
 //	private SpriteBatch batch;
 	private Stage /*stage,*/ confirm_stage, stage_other;
-	private BitmapFont font1, font2, font3;
+	private BitmapFont font1, font2, font3, fontButton;
 	private Texture texture, if_frame, shadow, war_frame, textbox;
-	private Button close, back, btn_money, btn_gold, btn_yes, btn_no;
-	private Button market[], btnpause, btnresume;
+	private Button close, back, btn_money, btn_gold;//, btn_yes, btn_no;
+	private Button market[];//, btnpause, btnresume;
+	private MyButton btnMarket[], btnPause, btnResume, btnYes, btnNo;
 	private String text = "";
 
 	private int index, comodity, payType = -1;
@@ -92,6 +108,7 @@ public class Market extends BaseScreen {
 		region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
 		icon2 = region[0];
 
+		fontButton = Assets.manager.get("data/font/font_normal.fnt", BitmapFont.class);
 		font1 = Assets.manager.get("data/font/cua-hang.fnt", BitmapFont.class);
 		font2 = new BitmapFont(Gdx.files.internal("data/font/kho-chua.fnt"), false);
 		font2.getData().setScale(0.4f);
@@ -108,14 +125,37 @@ public class Market extends BaseScreen {
 
 		TextureRegion tregion[] = new TextureRegion[4];
 		market = new Button[12];
-		for(int i = 0; i < 12; i++) {
+		btnMarket = new MyButton[12];
+		float lbPosX[] = {-5,0,-20,-45,-15,-5,0,-30,-10,0,-20,40};
+		float lbPosY[] = {-35,-35,-30,-30,-20,-40,-30,-40,-30,-30,-40,-30};
+		for(int ii = 0; ii < 12; ii++) {
+			final int i = ii;
 			tregion = getTextureRegion("data/market/" + array_market[i] + ".png", 4);
-			if(F.level >= array_lvUnlock[i])
+			if(F.level >= array_lvUnlock[i]) {
 				market[i] = createButton(tregion[0], tregion[1]);
-			else
+				btnMarket[i] = new MyButton(tregion[0], market_name[i], lbPosX[i], lbPosY[i]) {
+					@Override
+					public void precessClicked() {
+						market[i].setChecked(true);
+					}
+				};
+				btnMarket[i].setColorText(Color.RED);
+				btnMarket[i].setScaleFont(.8f);
+			}else {
 				market[i] = createButton(tregion[2], tregion[3]);
-			market[i].setPosition(pos[i][0], pos[i][1]);
-			stage.addActor(market[i]);
+				btnMarket[i] = new MyButton(tregion[2],market_name[i], lbPosX[i], lbPosY[i]) {
+					@Override
+					public void precessClicked() {
+						market[i].setChecked(true);
+					}
+				};
+				btnMarket[i].setColorText(Color.GRAY);
+				btnMarket[i].setScaleFont(.8f);
+			}
+//			market[i].setPosition(pos[i][0], pos[i][1]);
+			btnMarket[i].setPosition(pos[i][0], pos[i][1]);
+//			stage.addActor(market[i]);
+			stage.addActor(btnMarket[i]);
 		}
 
 		close = F.createButton("data/texture/close.png");
@@ -128,30 +168,128 @@ public class Market extends BaseScreen {
 		btn_money = F.createButton("data/shop/icon-xu.png");
 		btn_money.setPosition(660, 90);
 
-		btnpause = F.createButton("data/market/tam-dung-mua-ban.png");
-		btnpause.setPosition(520, 60);
-		btnresume = F.createButton("data/market/tiep-tuc-mua-ban.png");
-		btnresume.setPosition(520, 60);
+//		tregion = getTextureRegion("data/market/" + array_market[i] + ".png", 4);
+//		btnpause = F.createButton("data/market/tam-dung-mua-ban.png");//, Language.General.TAM_DUNG_MUA_BAN.getStr(), fontButton);
+//		btnpause.setPosition(520, 60);
+//		btnresume = F.createButton("data/market/tiep-tuc-mua-ban.png");//, Language.General.TIEP_TUC_MUA_BAN.getStr(), fontButton);
+//		btnresume.setPosition(520, 60);
 
-		btn_yes = F.createButton("data/texture/icon-YES.png");
-		btn_yes.setPosition(450, 240);
-		btn_no = F.createButton("data/texture/icon-NO.png");
-		btn_no.setPosition(670, 240);
+		TextureRegion tregionP[] = getTextureRegion("data/market/tam-dung.png", 2);
+		btnPause = new MyButton(tregionP[0], Language.General.TAM_DUNG_MUA_BAN.getStr()) {
+			@Override
+			public void precessClicked() {
+//				if(btnpause.isChecked()) {
+//						clicked_(btnpause);
+						smarket = true;
+						Data.savesMarket(index, 2);
+						array_state[index] = 2;
+						updateMstage(id);
+//					}
+			}
+		};
+		btnPause.setPosition(520, 60);
+//		btnPause.setScaleFont();
+btnPause.setColorText(Color.BLUE);
+
+		TextureRegion tregionR[] = getTextureRegion("data/market/tam-dung.png", 2);
+		btnResume = new MyButton(tregionR[0], Language.General.TIEP_TUC_MUA_BAN.getStr()) {
+			@Override
+			public void precessClicked() {
+//				if(btnpause.isChecked()) {
+//						clicked_(btnpause);
+						smarket = false;
+						Data.savesMarket(index, 1);
+						array_state[index] = 1;
+						updateMstage(id);
+//					}
+			}
+		};
+		btnResume.setPosition(520, 60);
+		btnResume.setColorText(Color.BLUE);
+
+		//					if(btnresume.isChecked()) {
+//						clicked_(btnresume);
+//						smarket = false;
+//						Data.savesMarket(index, 1);
+//						array_state[index] = 1;
+//						updateMstage(id);
+//					}
+
+//		btn_yes = F.createButton("data/texture/icon-YES.png");
+//		btn_yes.setPosition(450, 240);
+//		btn_no = F.createButton("data/texture/icon-NO.png");
+//		btn_no.setPosition(670, 240);
+
+		Texture texture = Assets.manager.get("data/texture/nap-xu.png", Texture.class);
+		tregion = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
+		btnYes = new MyButton(tregion[0], Language.General.YES.getStr()) {
+			@Override
+			public void precessClicked() {
+				if(payType == 0) {
+					if(F.coins >= market_cost) {
+						state = OPEN;
+						renderDialog = false;
+						F.coins -= market_cost;
+
+						Data.savesMarket(index, 1);
+						array_state[index] = 1;
+						updateMstage(id);
+						Audio.sunlockM.play(Audio.soundVolume);
+						Gdx.input.setInputProcessor(stage_other);
+					} else {
+						Audio.btnClick.play(Audio.soundVolume);
+						Farm.payment.onMCDialog();
+					}
+				}
+
+				if(payType == 1) {
+					if(F.money >= market_cost/10) {
+						state = OPEN;
+						renderDialog = false;
+						F.money -= market_cost/10;
+						Data.savesMarket(index, 1);
+						array_state[index] = 1;
+						updateMstage(id);
+						Audio.sunlockM.play(Audio.soundVolume);
+						Gdx.input.setInputProcessor(stage_other);
+
+						Farm.payment.Tracker(2, market_cost/10, market_name[index]); //Theo doi nguoi dung
+					} else {
+						Audio.btnClick.play(Audio.soundVolume);
+						Farm.payment.onMXDialog();
+					}
+				}
+			}
+		};
+
+		btnYes.setPosition(450, 240);
+		btnNo = new MyButton(tregion[0], Language.General.NO.getStr()) {
+			@Override
+			public void precessClicked() {
+				renderDialog = false;
+				payType = -1;
+				Gdx.input.setInputProcessor(stage_other);
+			}
+		};
+
+		btnNo.setPosition(670, 240);
 
 		stage.addActor(back);
 		group.addActor(close);
 		group.addActor(btn_money);
 		group.addActor(btn_gold);
 
-		confirm_stage.addActor(btn_yes);
-		confirm_stage.addActor(btn_no);
+//		confirm_stage.addActor(btn_yes);
+//		confirm_stage.addActor(btn_no);
+		confirm_stage.addActor(btnYes);
+		confirm_stage.addActor(btnNo);
 
 		isMusic = Data.getisMusic();
 		if(isMusic) {
 			Audio.smarket.play();
 		}
 
-		Texture texture = Assets.manager.get("data/shop/nuoc-than.png", Texture.class);
+		texture = Assets.manager.get("data/shop/nuoc-than.png", Texture.class);
 		TextureRegion wgod = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0][0];
 		image = new Image(wgod);
 		image.setScale(0.8f);
@@ -195,7 +333,7 @@ public class Market extends BaseScreen {
 	@Override
 	protected  void stageDraw(float delta){
 		super.stageDraw(delta);
-		stage_other.draw();
+//		stage_other.draw();
 		batch.begin();
 		for(int i = 0; i < 12; i++) {
 			int s = array_state[i];
@@ -284,7 +422,7 @@ public class Market extends BaseScreen {
 		batch.draw(shadow, 0, 0);
 		batch.draw(if_frame, 120, 0);
 		font1.draw(batch, market_name[index], 0, 640, 1280, Align.center, false);
-		font1.draw(batch, "Cấp độ: " + lvUnlock, 0, 580, 1280, Align.center, false);
+		font1.draw(batch, Language.General.CAP_DO.getStr() + lvUnlock, 0, 580, 1280, Align.center, false);
 
 		switch(state) {
 		case CLOSE:
@@ -306,7 +444,7 @@ public class Market extends BaseScreen {
 					}
 				}
 
-				font1.draw(batch, "Giá mở cửa giao dịch", 0, 290, 1280, Align.center, false);
+				font1.draw(batch, Language.General.GIA_MO_GD.getStr(), 0, 290, 1280, Align.center, false);
 				if(btn_gold.isChecked()) {
 					clicked_(btn_gold);
 					renderDialog = true;
@@ -322,7 +460,7 @@ public class Market extends BaseScreen {
 				}
 			}
 			else {
-				font1.draw(batch, "Bạn chưa thể mở thị trường \nnày được" , 0, 440,
+				font1.draw(batch, Language.General.CHUA_DC_MO_TT.getStr() , 0, 440,
 						1280, Align.center, false);
 			}
 
@@ -341,29 +479,28 @@ public class Market extends BaseScreen {
 			}
 
 			if(id == 5) {
-				font1.draw(batch, "Hoàn thành nhiệm vụ bạn sẽ được tặng\n" +
-						"một lọ nước nâng cấp !", 0, 290, 1280, Align.center, false);
+				font1.draw(batch, Language.General.HTNV_TANG_LO_NUOC.getStr(), 0, 290, 1280, Align.center, false);
 				image.draw(batch, 1);
 			} else {
 				font1.draw(batch, text, 0, 290, 1280, Align.center, false);
 				if(smarket) {
-					text = "Trạng thái: Tạm dừng giao dịch";
-					if(btnresume.isChecked()) {
-						clicked_(btnresume);
-						smarket = false;
-						Data.savesMarket(index, 1);
-						array_state[index] = 1;
-						updateMstage(id);
-					}
+					text = Language.General.TT_TAM_DUNG_GD.getStr();
+//					if(btnresume.isChecked()) {
+//						clicked_(btnresume);
+//						smarket = false;
+//						Data.savesMarket(index, 1);
+//						array_state[index] = 1;
+//						updateMstage(id);
+//					}
 				} else {
-					text = "Trạng thái: Đang giao dịch";
-					if(btnpause.isChecked()) {
-						clicked_(btnpause);
-						smarket = true;
-						Data.savesMarket(index, 2);
-						array_state[index] = 2;
-						updateMstage(id);
-					}
+					text = Language.General.TT_DANG_GD.getStr();
+//					if(btnpause.isChecked()) {
+//						clicked_(btnpause);
+//						smarket = true;
+//						Data.savesMarket(index, 2);
+//						array_state[index] = 2;
+//						updateMstage(id);
+//					}
 				}
 			}
 			break;
@@ -381,7 +518,7 @@ public class Market extends BaseScreen {
 				}
 			}
 
-			font1.draw(batch, "Giao dịch hoàn thành", 0, 230, 1280, Align.center, false);
+			font1.draw(batch, Language.General.GD_HOAN_THANH.getStr(), 0, 230, 1280, Align.center, false);
 			break;
 		}
 		batch.end();
@@ -406,51 +543,51 @@ public class Market extends BaseScreen {
 		batch.end();
 		confirm_stage.draw();
 
-		if(btn_yes.isChecked()) {
-			clicked_(btn_yes);
+//		if(btn_yes.isChecked()) {
+//			clicked_(btn_yes);
 
-			if(payType == 0) {
-				if(F.coins >= market_cost) {
-					state = OPEN;
-					renderDialog = false;
-					F.coins -= market_cost;
+//			if(payType == 0) {
+//				if(F.coins >= market_cost) {
+//					state = OPEN;
+//					renderDialog = false;
+//					F.coins -= market_cost;
+//
+//					Data.savesMarket(index, 1);
+//					array_state[index] = 1;
+//					updateMstage(id);
+//					Audio.sunlockM.play(Audio.soundVolume);
+//					Gdx.input.setInputProcessor(stage_other);
+//				} else {
+//					Audio.btnClick.play(Audio.soundVolume);
+//					Farm.payment.onMCDialog();
+//				}
+//			}
+//
+//			if(payType == 1) {
+//				if(F.money >= market_cost/10) {
+//					state = OPEN;
+//					renderDialog = false;
+//					F.money -= market_cost/10;
+//					Data.savesMarket(index, 1);
+//					array_state[index] = 1;
+//					updateMstage(id);
+//					Audio.sunlockM.play(Audio.soundVolume);
+//					Gdx.input.setInputProcessor(stage_other);
+//
+//					Farm.payment.Tracker(2, market_cost/10, market_name[index]); //Theo doi nguoi dung
+//				} else {
+//					Audio.btnClick.play(Audio.soundVolume);
+//					Farm.payment.onMXDialog();
+//				}
+//			}
+//		}
 
-					Data.savesMarket(index, 1);
-					array_state[index] = 1;
-					updateMstage(id);
-					Audio.sunlockM.play(Audio.soundVolume);
-					Gdx.input.setInputProcessor(stage_other);
-				} else {
-					Audio.btnClick.play(Audio.soundVolume);
-					Farm.payment.onMCDialog();
-				}
-			}
-
-			if(payType == 1) {
-				if(F.money >= market_cost/10) {
-					state = OPEN;
-					renderDialog = false;
-					F.money -= market_cost/10;
-					Data.savesMarket(index, 1);
-					array_state[index] = 1;
-					updateMstage(id);
-					Audio.sunlockM.play(Audio.soundVolume);
-					Gdx.input.setInputProcessor(stage_other);
-
-					Farm.payment.Tracker(2, market_cost/10, market_name[index]); //Theo doi nguoi dung
-				} else {
-					Audio.btnClick.play(Audio.soundVolume);
-					Farm.payment.onMXDialog();
-				}
-			}
-		}
-
-		if(btn_no.isChecked()) {
-			clicked_(btn_no);
-			renderDialog = false;
-			payType = -1;
-			Gdx.input.setInputProcessor(stage_other);
-		}
+//		if(btn_no.isChecked()) {
+//			clicked_(btn_no);
+//			renderDialog = false;
+//			payType = -1;
+//			Gdx.input.setInputProcessor(stage_other);
+//		}
 	}
 
 	public void updateMstage(int id) {
@@ -464,8 +601,11 @@ public class Market extends BaseScreen {
 			break;
 		case OPEN:
 			if(id != 5 && state != 3) {
-				if(smarket)  group.addActor(btnresume);
-				else  group.addActor(btnpause);
+//				if(smarket)  group.addActor(btnresume);
+//				else  group.addActor(btnpause);
+
+				if(smarket)  group.addActor(btnResume);
+				else  group.addActor(btnPause);
 			}
 			break;
 		}

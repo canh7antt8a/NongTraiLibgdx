@@ -3,6 +3,7 @@ package vn.sunnet.game.farm.main;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.nature.F;
 import vn.sunnet.game.farm.screen.MenuScreen;
 import vn.sunnet.game.farm.screen.Payment;
@@ -26,8 +27,8 @@ public class Farm extends Game {
 
 	@Override
 	public void create() {
-		F.LoadText();
-        Assets.load();
+		F.language = Language.LANGU.VN;
+//        Assets.load();
 //		payment.setHighScoreListener(new OnHighScoreListener() {
 //
 //			public boolean onValidBeforeSendScore(HighscoreSendType type) {

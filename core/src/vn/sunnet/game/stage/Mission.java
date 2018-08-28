@@ -3,6 +3,7 @@ package vn.sunnet.game.stage;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.nature.F;
 import vn.sunnet.game.farm.nature.SeedNature;
 
@@ -57,10 +58,10 @@ public class Mission{
 		switch(cs) {
 		case 0:
 			if(n == 3) {
-				font.draw(batch, "Bạn đã hoàn thành nhiệm vụ", 0, 625, 1280, Align.center, false);
+				font.draw(batch, Language.General.HOAN_THANH_NV.getStr(), 0, 625, 1280, Align.center, false);
 			} else {
-				font.draw(batch, "Nhiệm vụ", 0, 645, 1280, Align.center, false);
-				font.draw(batch, "Đáp ứng nhu cầu kho lương thực \nquốc gia", 0, 580, 1280, Align.center, false);
+				font.draw(batch,  Language.General.NHIEM_VU.getStr(), 0, 645, 1280, Align.center, false);
+				font.draw(batch,  Language.General.DAP_UNG_NC_LT_QG.getStr(), 0, 580, 1280, Align.center, false);
 				
 				for(int i = 0; i < len; i++) {
 					int kind = (require[i][0] < 12) ? require[i][0] : require[i][0] - 12;

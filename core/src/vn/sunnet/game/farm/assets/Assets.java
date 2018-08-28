@@ -1,7 +1,9 @@
 package vn.sunnet.game.farm.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.TextureLoader.TextureParameter;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -29,7 +31,7 @@ public class Assets {
 		
 		manager.load(path + "ban.png", Texture.class, parameter);
 		manager.load(path + "nap-xu.png", Texture.class, parameter);
-		manager.load(path + "nhan.png", Texture.class, parameter);
+//		manager.load(path + "nhan.png", Texture.class, parameter);
 		manager.load(path + "shadow.png", Texture.class, parameter);
 		manager.load(path + "icon-cua-hang.png", Texture.class, parameter);
 		manager.load(path + "icon-hat-giong.png", Texture.class, parameter);
@@ -108,7 +110,7 @@ public class Assets {
 		manager.load(path + "icon-YES.png", Texture.class, parameter);
 		manager.load(path + "icon-NO.png", Texture.class, parameter);
 		manager.load(path + "thong-tin.png", Texture.class, parameter);
-		manager.load(path + "nang-cap.png", Texture.class, parameter);
+//		manager.load(path + "nang-cap.png", Texture.class, parameter);
 		manager.load(path + "nang-cap-2.png", Texture.class, parameter);
 		manager.load(path + "khung-upg.png", Texture.class, parameter);
 		manager.load(path + "bg-thong-tin.png", Texture.class, parameter);
@@ -160,17 +162,17 @@ public class Assets {
 		manager.load(ipath + "dau-tay.png", Texture.class, parameter);
 		manager.load(ipath + "le.png", Texture.class, parameter);		
 		
-		manager.load(upath + "dang-yeu.png", Texture.class, parameter);
-		manager.load(upath + "giau-co.png", Texture.class, parameter);
-		manager.load(upath + "hanh-phuc.png", Texture.class, parameter);
-		manager.load(upath + "hieu-khach.png", Texture.class, parameter);
-		manager.load(upath + "than-thien.png", Texture.class, parameter);
-		manager.load(upath + "vui-ve.png", Texture.class, parameter);
-		manager.load(upath + "danh-hieu.png", Texture.class, parameter);
-		manager.load(upath + "gui-diem.png", Texture.class, parameter);
-		manager.load(upath + "level.png", Texture.class, parameter);
+//		manager.load(upath + "dang-yeu.png", Texture.class, parameter);
+//		manager.load(upath + "giau-co.png", Texture.class, parameter);
+//		manager.load(upath + "hanh-phuc.png", Texture.class, parameter);
+//		manager.load(upath + "hieu-khach.png", Texture.class, parameter);
+//		manager.load(upath + "than-thien.png", Texture.class, parameter);
+//		manager.load(upath + "vui-ve.png", Texture.class, parameter);
+//		manager.load(upath + "danh-hieu.png", Texture.class, parameter);
+		manager.load(upath + "btn_message.png", Texture.class, parameter);
+//		manager.load(upath + "level.png", Texture.class, parameter);
 		manager.load(upath + "level1.png", Texture.class, parameter);
-		manager.load(upath + "nhan.png", Texture.class, parameter);
+//		manager.load(upath + "nhan.png", Texture.class, parameter);
 		manager.load(upath + "nhiem-vu.png", Texture.class, parameter);
 		manager.load(upath + "khung.png", Texture.class, parameter);
 		
@@ -207,17 +209,17 @@ public class Assets {
 		manager.load(fpath + "garden.fnt", BitmapFont.class);
 		manager.load(fpath + "level.fnt", BitmapFont.class);
 		manager.load(fpath + "xu.fnt", BitmapFont.class);
-		manager.load(fpath + "font-hoan-chinh.fnt", BitmapFont.class);
+		manager.load(fpath + "font_normal.fnt", BitmapFont.class);
 		manager.load(fpath + "kho-chua.fnt", BitmapFont.class);
 		manager.load(fpath + "font-xanh.fnt", BitmapFont.class);
 		manager.load(fpath + "cua-hang.fnt", BitmapFont.class);
 		manager.load(fpath + "font-vang.fnt", BitmapFont.class);
 		manager.load(fpath + "font_clock.fnt", BitmapFont.class);
-		
+
 		manager.load(mpath + "co-0.png", Texture.class, parameter);
 		manager.load(mpath + "co-1.png", Texture.class, parameter);
 		manager.load(mpath + "co-2.png", Texture.class, parameter);
-		manager.load(mpath + "bat-dau.png", Texture.class);
+//		manager.load(mpath + "bat-dau.png", Texture.class);
 		manager.load(mpath + "tam-dung.png", Texture.class);
 		manager.load(mpath + "khung-thong-tin.png", Texture.class);
 		manager.load(mpath + "chung-cu.png", Texture.class);
@@ -235,9 +237,9 @@ public class Assets {
 		manager.load(mpath + "thong-tin.png", Texture.class, parameter);
 		manager.load(mpath + "textbox.png", Texture.class, parameter);
 		manager.load(mpath + "vuon-thu.png", Texture.class, parameter);
-		manager.load(mpath + "bat-dau-mua-ban.png", Texture.class, parameter);
-		manager.load(mpath + "tam-dung-mua-ban.png", Texture.class, parameter);
-		manager.load(mpath + "tiep-tuc-mua-ban.png", Texture.class, parameter);		
+//		manager.load(mpath + "bat-dau-mua-ban.png", Texture.class, parameter);
+//		manager.load(mpath + "tam-dung-mua-ban.png", Texture.class, parameter);
+//		manager.load(mpath + "tiep-tuc-mua-ban.png", Texture.class, parameter);
 		
 		manager.load(spath + "cua-hang.png", Texture.class);
 		manager.load(spath + "nhan-cong.png", Texture.class);

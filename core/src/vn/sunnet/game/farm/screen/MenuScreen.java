@@ -1,14 +1,17 @@
 package vn.sunnet.game.farm.screen;
 
+import vn.sunnet.game.farm.Actor.MyButton;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.main.Farm;
 import vn.sunnet.game.farm.nature.F;
 import vn.sunnet.game.stage.GuideLine;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -26,6 +29,8 @@ public class MenuScreen extends BaseScreen {
 	private GuideLine tutorialScreen;
 	private boolean isSetting = false, isGuide = false;
 	public static boolean isShowAd;
+
+	private MyButton buttonVN, buttonEN;
 	
 	public MenuScreen(Farm farm) {
 		super();
@@ -37,9 +42,35 @@ public class MenuScreen extends BaseScreen {
 //		stage = new Stage();
 //		stage.setViewport(viewport);
 
-		String demo = F.CCFS("app_name");
+		Texture texture = new Texture(Gdx.files.internal( "data/flag/vn.png"));
+        TextureRegion region = new TextureRegion(texture);
 
-		System.out.println("===========>   demo:   " + demo);
+		buttonVN = new MyButton(region) {
+			@Override
+			public void precessClicked() {
+			    F.setLanguage(Language.LANGU.VN);
+                buttonEN.setColor(Color.WHITE);
+                buttonVN.setColor(Color.YELLOW);
+			}
+		};
+		buttonVN.setPosition(buttonVN.getWidth()/2, buttonVN.getHeight()/2);
+
+        Texture texture2 = new Texture(Gdx.files.internal( "data/flag/en.png"));
+        TextureRegion region2 = new TextureRegion(texture2);
+
+        buttonEN = new MyButton(region2) {
+            @Override
+            public void precessClicked() {
+                F.setLanguage(Language.LANGU.EN);
+                buttonVN.setColor(Color.WHITE);
+                buttonEN.setColor(Color.YELLOW);
+            }
+        };
+
+        buttonVN.setColor(Color.YELLOW);
+        buttonEN.setPosition(buttonVN.getX() + buttonVN.getWidth() + 10, buttonVN.getY());
+		stage.addActor(buttonVN);
+		stage.addActor(buttonEN);
 		
 		btn_info = createButton("thong-tin.png");
 		btn_info.setPosition(105, 190);
@@ -71,8 +102,7 @@ public class MenuScreen extends BaseScreen {
 		if(Data.getisSound())	Audio.soundVolume = 1;
 		else 	
 			Audio.soundVolume = 0;
-		
-//		background = Assets.manager.get(pathTexture + "menu.jpg", Texture.class);//new Texture(Assets.resolver.resolve(pathTexture + "menu.jpg"));
+
 		background = new Texture(Gdx.files.internal(pathTexture + "menu.jpg"));
 		isShowAd = Data.showAdview();
 		if(isShowAd) {
@@ -83,7 +113,6 @@ public class MenuScreen extends BaseScreen {
 	}
 	
 	public Button createButton(String name) {
-//		Texture texture = Assets.manager.get(pathTexture + name, Texture.class);
 		Texture texture = new Texture(Gdx.files.internal(pathTexture + name));
 		TextureRegion[] region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
 		return new Button(new TextureRegionDrawable(region[0]), new TextureRegionDrawable(region[1]),

@@ -2,14 +2,17 @@ package vn.sunnet.game.stage;
 
 import java.util.ArrayList;
 
+import vn.sunnet.game.farm.Actor.MyButton;
 import vn.sunnet.game.farm.Actor.WButton;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.nature.F;
 import vn.sunnet.game.farm.nature.SeedNature;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,7 +33,7 @@ public class Warehouse {
 	private String name, text;
 	private Stage stage, istage;
 	private Group group;
-	private BitmapFont font1, font2, font3, font4, font5;
+	private BitmapFont font1, font2, font3, font4, font5, fontContent;
 	private Texture frame1, frame2;
 	private Button btn_left, btn_right, btnsell, close;
 	private Button[] increment, decrement;
@@ -39,13 +42,15 @@ public class Warehouse {
 	public int value, amount, count, coins, state;
 	private int currentPos = 0, maxPos, index;
 	private ArrayList<WButton> arrayList;
+	private ArrayList<MyButton> arrayListButton;
 	private WButton wbutton;
+//	private MyButton mbutton;
 	public int n; // type * 12 + kind
 	
 	public Warehouse(int state, Stage sta) {
 		this.state = state;	
-		if(state == 0)  text = "Kho chứa nông phẩm";
-		else	text = "Chọn nông phẩm để bán";
+		if(state == 0)  text =  Language.General.KHO_CHUA_NONG_PHAM.getStr();//"Kho chứa nông phẩm";
+		else	text =  Language.General.CHON_NP_DE_BAN.getStr();//"Chọn nông phẩm để bán";
 		
 		stage = new Stage();
 	    istage = new Stage();
@@ -60,10 +65,13 @@ public class Warehouse {
 	    font1.getData().setScale(0.5f);
 	    font2 = Assets.manager.get("data/font/level.fnt", BitmapFont.class);
 	    font2.getData().setScale(0.6f);
-	    font3 = Assets.manager.get("data/font/font-hoan-chinh.fnt", BitmapFont.class);	
+	    font3 = Assets.manager.get(F.strFontNormal, BitmapFont.class);
 	    font4 = new BitmapFont(Gdx.files.internal("data/font/font.fnt"), false);
-	    font5 = new BitmapFont(Gdx.files.internal("data/font/cua-hang.fnt"), false);
-	    
+		font5 = new BitmapFont(Gdx.files.internal("data/font/cua-hang.fnt"), false);
+		fontContent = new BitmapFont(Gdx.files.internal("data/font/cua-hang.fnt"), false);
+	    fontContent.setColor(Color.BLACK);
+        fontContent.getData().setScale(.8f);
+
 	    frame1 = Assets.manager.get(path + "bar.png", Texture.class);
 	    frame2 = Assets.manager.get(path + "thong-tin-ban.png", Texture.class);
 	    
@@ -96,23 +104,54 @@ public class Warehouse {
 	    
 	    istage.addActor(btnsell);
 	    istage.addActor(close);
-	    
-	    arrayList = new ArrayList<WButton>();
+
+		arrayList = new ArrayList<WButton>();
+		arrayListButton = new ArrayList<MyButton>();
+//		public static String flower[] = {"dong-tien", "lily", "hoa-sen", "tu-cau", "cam-chuong",
+//				"lily-loa-ken", "trang-nguyen", "hoa-hong", "huong-duong", "violet", "bo-cong-anh", "tulip"};
+//		public static String fruit[] = {"bi-ngo", "ca-chua", "ca-tim", "cam", "chuoi", "cu-cai", "dua-hau",
+//				"nho", "tao", "xoai", "dau-tay", "le"};
+		float posXFlower[] = {0, -15, -15, 0, 5, 5, 0, -10, 0, -5, -5, -20};
+		float posYFlower[] = {-20, -30, -30, -20, -25, -35, -35, -25, -25, -30, -28, -25};
 	    for(int i = 0; i < 12; i++) {
 	    	int amount = Data.loadFlWavehouse(i);
 	    	if(amount > 0) {
+			final int ii = i;
 	    		loadDrawable(path + SeedNature.flower[i] + ".png");
-	    		wbutton = new WButton(up, down, checked, font1, FLOWER, i, amount);
-	    		arrayList.add(wbutton);
+			final WButton wbtn = new WButton(up, down, checked, font1, FLOWER, i, amount);
+			MyButton mbutton = new MyButton(((TextureRegionDrawable)up).getRegion(), SeedNature.flname[i], posXFlower[i], posYFlower[i]) {
+					@Override
+					public void precessClicked() {
+						wbtn.setChecked(true);
+//						arrayList[ii].setChecked(true);
+					}
+				};
+				mbutton.setColorText(Color.BLUE);
+				arrayListButton.add(mbutton);
+	    		arrayList.add(wbtn);
 	    	}
 	    }
-	    
+
+		float posXFruit[] = {-10, -25, -25, -25, -25, 0, -10, -10, -25, -25, -20, -25};
+		float posYFruit[] = {-23, -20, -20, -20, -25, -35, -20, -25, -30, -25, -25, -30};
 	    for(int i = 0; i < 12; i++) {
 	    	int amount = Data.loadFrWavehouse(i);
 	    	if(amount > 0) {
+
+			final int ii = i;
 	    		loadDrawable(path + SeedNature.fruit[i] + ".png");
-	    		wbutton = new WButton(up, down, checked, font1, FRUIT, i, amount);
-	    		arrayList.add(wbutton);
+			final WButton wbtn = new WButton(up, down, checked, font1, FRUIT, i, amount);
+				MyButton mbutton = new MyButton(((TextureRegionDrawable)up).getRegion(), SeedNature.frname[i], posXFruit[i], posYFruit[i]) {
+					@Override
+					public void precessClicked() {
+						wbtn.setChecked(true);
+
+//						arrayList[ii].setChecked(true);
+					}
+				};
+			mbutton.setColorText(Color.BLUE);
+				arrayListButton.add(mbutton);
+	    		arrayList.add(wbtn);
 	    	}
 	    }
 	    
@@ -134,8 +173,11 @@ public class Warehouse {
 	    
 		for(int i = pos; i < des; i++) {
 			wbutton = arrayList.get(i);
-			wbutton.setPosition(150 + ((i - pos) % 4) * 250, 270);
-			group.addActor(wbutton);
+			MyButton mbutton = arrayListButton.get(i);
+			mbutton.setPosition(150 + ((i - pos) % 4) * 250, 270);
+			group.addActor(mbutton);
+//			wbutton.setPosition(150 + ((i - pos) % 4) * 250, 270);
+//			group.addActor(wbutton);
 		}
 	}
 	
@@ -228,6 +270,9 @@ public class Warehouse {
 	public void renderSeed(SpriteBatch batch, int index) {
 		batch.begin();
 		batch.draw(frame2, 295, 20);
+        fontContent.draw(batch, Language.General.GIA_BAN_NHANH.getStr(), 400, 570);
+        fontContent.draw(batch, Language.General.NHAP_SO_LUONG.getStr(), 500, 470);
+        fontContent.draw(batch, Language.General.TONG_SO_TIEN.getStr(), 400, 270);
 		font5.draw(batch, name, 400, 660, 480, Align.center, false);
 		font2.draw(batch, Integer.toString(value), 640, 588, 200, Align.center, false);
 		font4.draw(batch, "-20%", 850, 570);

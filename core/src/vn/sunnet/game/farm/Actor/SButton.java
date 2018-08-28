@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+//import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 
@@ -18,6 +19,8 @@ public class SButton extends Button {
 	public boolean lock;
 	private BitmapFont font;
 	public String name = "";
+
+//	private Label lbTitle;
 	
 	public SButton(Drawable up, Drawable down, TextureRegion region, int type, int kind, BitmapFont font) {
 		super(up, down, up);
@@ -52,7 +55,19 @@ public class SButton extends Button {
 		
 		lock = (F.level >= lvUnlock) ? false : true;
 	}
-	
+
+	public SButton(Drawable up, Drawable down, Drawable checked, String title, BitmapFont font){
+		super(up, down, up);
+		this.font = font;
+		this.name = title;
+
+        System.out.print("======> title button:   " + name);
+//        Label.LabelStyle textStyle = new Label.LabelStyle();
+//        textStyle.font = font;
+//		lbTitle = new Label(title, textStyle);
+		lock = true;
+	}
+
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		validate();
 		super.draw(batch, parentAlpha);
@@ -60,7 +75,8 @@ public class SButton extends Button {
 		if(lock) {
 			batch.draw(region, getX(), getY());
 		}
-		
+
+        System.out.print("======> title button:   " + name);
 		font.draw(batch, name, getX() + 20, getY() + 20, 180, Align.center, false);
 	}
 }

@@ -2,8 +2,8 @@ buildscript {
     
 
     repositories {
-        mavenLocal()
-        mavenCentral()
+//        mavenLocal()
+//        mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
@@ -32,8 +32,9 @@ allprojects {
     }
 
     repositories {
-        mavenLocal()
-        mavenCentral()
+//        mavenLocal()
+//        mavenCentral()
+        jcenter()
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
@@ -45,9 +46,9 @@ project(":desktop") {
 
 
     dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        implementation project(":core")
+        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         
     }
 }
@@ -58,8 +59,9 @@ project(":android") {
     configurations { natives }
 
     dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        implementation project(":core")
+        implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+//        compile 'org.jetbrains.trove4j: trove4j: 20160824'
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
@@ -75,11 +77,11 @@ project(":ios") {
 
 
     dependencies {
-        compile project(":core")
-        compile "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
-        compile "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
-        compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+        implementation project(":core")
+        implementation "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
+        implementation "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
+        implementation "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
         
     }
 }
@@ -89,7 +91,7 @@ project(":core") {
 
 
     dependencies {
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         
     }
 }

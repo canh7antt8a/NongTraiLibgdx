@@ -3,44 +3,56 @@ package vn.sunnet.game.farm.screen;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.nature.F;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Setting {
-
 	private Texture background;
 	private Button btnSound, btnMusic, btnclose;
 	private Stage stage;
 	private boolean isSound, isMusic, gc = false;
+	private BitmapFont fontTitle;
+	private BitmapFont font;
 	
 	public Setting(Stage sta) {
 		stage = new Stage();
 //		background = Assets.manager.get("data/menu/cai-dat-2.png", Texture.class);//new Texture(Assets.resolver.resolve("data/menu/cai-dat-2.png"));
 		background = new Texture(Gdx.files.internal("data/menu/cai-dat-2.png"));
-		
-		isMusic = Data.getisMusic();
+
+		fontTitle = new BitmapFont(Gdx.files.internal(F.strFontNormal));
+		fontTitle.setColor(Color.RED);
+		fontTitle.getData().setScale(1.75f);
+
+		font = new BitmapFont(Gdx.files.internal(F.strFontNormal));
+		font.setColor(Color.BLACK);
+		font.getData().setScale(1.2f);
+
+        isMusic = Data.getisMusic();
 		isSound = Data.getisSound();
 		
 		btnSound = createButton("data/menu/am-thanh.png");
 		btnSound.setChecked(!isSound);
-//		btnSound.setPosition(220, 160);
 		btnSound.setPosition(440, 230);
 		btnMusic = createButton("data/menu/nhac-nen.png");
 		btnMusic.setChecked(!isMusic);
-//		btnMusic.setPosition(660, 250);
 		btnMusic.setPosition(660, 340);
 		
 		btnclose = createButton("data/texture/close.png");
-//		btnclose.setPosition(780, 400);
 		btnclose.setPosition(1090, 575);
+
+
 
         stage.setViewport(sta.getViewport());
 
@@ -62,6 +74,9 @@ public class Setting {
 	public void render(SpriteBatch batch) {
 		batch.begin();
 		batch.draw(background, 133, 83);
+		fontTitle.draw(batch, Language.General.SETTING.getStr(), 550, 600);
+        font.draw(batch, Language.General.MUSIC.getStr(), 220, 415);
+        font.draw(batch, Language.General.SOUND.getStr(), 580, 310);
 		batch.end();
 		stage.draw();
 		updateButton();

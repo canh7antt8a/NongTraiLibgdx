@@ -31,7 +31,7 @@ public class LoadingScreen extends BaseScreen{
 		super();
 		this.farm = farm;
 		
-		bmpfont = new BitmapFont(Gdx.files.internal("data/font/font-hoan-chinh.fnt"), false);
+		bmpfont = new BitmapFont(Gdx.files.internal(F.strFontNormal), false);
 		bmpfont.getData().setScale(0.7f);
 
 		background = new Texture(Gdx.files.internal(path + "loading-1.jpg"));

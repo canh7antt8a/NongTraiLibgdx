@@ -3,9 +3,12 @@ package vn.sunnet.game.farm.screen;
 import java.util.ArrayList;
 import java.util.Random;
 
+import vn.sunnet.game.farm.Actor.MyButton;
+import vn.sunnet.game.farm.Actor.SButton;
 import vn.sunnet.game.farm.assets.Assets;
 import vn.sunnet.game.farm.assets.Audio;
 import vn.sunnet.game.farm.assets.Data;
+import vn.sunnet.game.farm.assets.Language;
 import vn.sunnet.game.farm.main.Farm;
 import vn.sunnet.game.farm.nature.F;
 import vn.sunnet.game.farm.nature.SeedNature;
@@ -32,6 +35,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -59,7 +63,11 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 	private static final int GAME_STOPPED = 3;
 	private static final String defVal = "none";
 	private float season_time, eTime;
-	private String[] array_season = {"mùa xuân", "mùa hạ", "mùa thu", "mùa đông"};
+	private String[] array_season = {
+			Language.General.MUA_XUAN.getStr()
+			,Language.General.MUA_HA.getStr()
+			,Language.General.MUA_THU.getStr()
+			,Language.General.MUA_DONG.getStr()};
 	
 	private int nof_season, nof_plot, nof_garden, currentGarden;
 	public static long experience, beginExp, endExp;
@@ -71,8 +79,9 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 	private GuideLine guide;
 	private Stage /*stage,*/ stage2, stage3, stage4, stage5; //stage4: pause
 	private Button btn_pause, btn_shop, btn_warehouse, btn_shovel, btn_seed, btn_market;
-	private Button prev_garden, next_garden, expansion, btn_yes, btn_no;
-	private Button resume, setting, archivement, home, recharge;
+	private Button prev_garden, next_garden; /*expansion,*/ //btn_yes, btn_no;
+	private MyButton btnExpansion, btnRecharge, btnYes, btnNo;
+	private Button resume, setting, archivement, home;//, recharge;
 	private Button upgrade[], btn_employee, btn_mission, btn_gift, btn_gift_;
 	private Vector2 pPos, basePos1, basePos2;
 	private Texture background[], pause_bg;
@@ -126,7 +135,9 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 	public Vector2 pos;
 	private Random random;
 	private int gifts;
-	
+
+	private SButton btn_Title;
+	private BitmapFont fontButton;
 	@SuppressWarnings("unchecked")
 	public PlayScreen(Farm farm) {
 		super();
@@ -167,11 +178,50 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		coiFont.getData().setScale(0.8f);
 		clockFont = Assets.manager.get(fpath + "font_clock.fnt", BitmapFont.class);
 		clockFont.getData().setScale(1.4f);
+
+        fontButton = new BitmapFont(Gdx.files.internal(F.strFontNormal));//Assets.manager.get(F.strFontNormal, BitmapFont.class);
+//		btn_Title = F.createButton(path + "xu.png", "DEMO", fontButton);
+//		btn_Title.setPosition(400, 300);
+//
+//		stage.addActor(btn_Title);
 		
-		btn_yes = createButton("icon-YES.png", 0);
-		btn_yes.setPosition(235, 270);
-		btn_no = createButton("icon-NO.png", 0);
-		btn_no.setPosition(555, 270);
+//		btn_yes = createButton("icon-YES.png", 0);
+//		btn_yes.setPosition(235, 270);
+//		btn_no = createButton("icon-NO.png", 0);
+//		btn_no.setPosition(555, 270);
+
+		Texture texture = Assets.manager.get(path + "nap-xu.png");
+		TextureRegion[] region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
+		btnYes = new MyButton(region[0], Language.General.YES.getStr()) {
+			@Override
+			public void precessClicked() {
+				if(action == ACTION_FLUCK) {
+					if (pAction != NONE) {
+						updatepAction = false;
+						player.setDestination(touchPoint, pAction, p_id, -1, -1);
+						Gdx.input.setInputProcessor(multiPlexer);
+					}
+				}
+			}
+		};
+		btnYes.setPosition(235, 270);
+
+//		texture = Assets.manager.get(path + "nap-xu.png");
+//		region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
+		btnNo = new MyButton(region[0], Language.General.NO.getStr()) {
+			@Override
+			public void precessClicked() {
+				if(action == ACTION_FLUCK) {
+					if (pAction != NONE) {
+						updatepAction = false;
+						player.setDestination(touchPoint, NONE, p_id, -1, -1);
+						Gdx.input.setInputProcessor(multiPlexer);
+					}
+				}
+			}
+		};
+		btnNo.setPosition(555, 270);
+
 		btn_pause = createButton("icon-pause.png", 1);
 		btn_pause.setPosition(1135, 575);
 		btn_shop = createButton("icon-cua-hang.png", 0);
@@ -188,10 +238,44 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		prev_garden.setPosition(18, 565);
 		next_garden = createButton("bien-bao-1.png", 0);
 		next_garden.setPosition(112, 565);
-		expansion = createButton("expansion.png", 0);
+
+//		expansion = createButton("expansion.png", 0);
+
+		texture = Assets.manager.get(path + "expansion.png");
+		region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
+		btnExpansion = new MyButton(region[0], Language.General.MO_RONG.getStr(), 0, 30) {
+			@Override
+			public void precessClicked() {
+				Audio.btnClick.play(Audio.soundVolume);
+
+				boolean flag = false;
+				if(nof_plot < F.level + 9) flag = true;
+
+				if(!flag) {
+					Farm.payment.onDialog(String.format(Language.General.DAT_LV_MO_DAT.getStr(),(F.level + 1)));
+				} else {
+					pause_();
+					renderExpansion = true;
+					expansionGarden = new ExpansionGarden(nof_plot, stage);
+				}
+			}
+		};
+		btnExpansion.setScaleFont(.6f);
+
 		signageBound = new Rectangle();
-		recharge = createButton("nap-xu.png", 0);
-		recharge.setPosition(10, 660);
+//		recharge = createButton("nap-xu.png", 0);
+//		recharge.setPosition(10, 660);
+
+		texture = Assets.manager.get(path + "nap-xu.png");
+		region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
+		btnRecharge = new MyButton(region[0], Language.General.NAP_XU.getStr()) {
+			@Override
+			public void precessClicked() {
+				Farm.payment.onRequestPayment();
+			}
+		};
+		btnRecharge.setColorText(Color.BLUE);
+		btnRecharge.setPosition(10, 660);
 		
 		//resume, setting, archivement, exit
 		home = createButton("home.png", 0);
@@ -212,11 +296,12 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		btn_gift_.setPosition(400, 10);
 		btn_employee = createButton("nhan-cong.png", 0);
 		btn_employee.setPosition(550, 10);
-		
-		stage.addActor(btn_mission);
+
+        stage.addActor(btn_mission);
 		stage.addActor(btn_gift);
 		stage.addActor(btn_gift_);
-		stage.addActor(recharge);
+//		stage.addActor(recharge);
+		stage.addActor(btnRecharge);
 		
 		stage.addActor(btn_pause);
 		stage.addActor(btn_shop);
@@ -227,9 +312,12 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		
 		stage.addActor(prev_garden);
 		stage.addActor(next_garden);
-		stage2.addActor(expansion);
-		stage3.addActor(btn_yes);
-		stage3.addActor(btn_no);
+//		stage2.addActor(expansion);
+		stage2.addActor(btnExpansion);
+//		stage3.addActor(btn_yes);
+//		stage3.addActor(btn_no);
+		stage3.addActor(btnYes);
+		stage3.addActor(btnNo);
 		
 		stage4.addActor(resume);
 		stage4.addActor(archivement);
@@ -488,14 +576,16 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		int id = nof_plot % 12;
 		pos = new Vector2(75 + 210 * (id % 4), 371 - 153 * (id / 4));
 		signageBound.set(pos.x, pos.y, 205, 153);
-		expansion.setPosition(pos.x + 50, pos.y + 30);
+//		expansion.setPosition(pos.x + 50, pos.y + 30);
+		btnExpansion.setPosition(pos.x + 50, pos.y + 30);
 		
 		if(currentGarden != (nof_garden - 1) || nof_plot == 120) {
 			renderSignage = false;
 			stage2.clear();
 		} else {
 			renderSignage = true;
-			stage2.addActor(expansion);
+//			stage2.addActor(expansion);
+			stage2.addActor(btnExpansion);
 		}
 	}
 	
@@ -915,6 +1005,9 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		player.pause = false;
 		btn_pause.setChecked(false);
 
+        fontButton.getData().setScale(1.0f);
+        fontButton.setColor(Color.WHITE);
+
 		for(int i = 0; i < F.nof_employee; i++) {
 			employee.resume_();
 		}
@@ -929,6 +1022,9 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		} else {
 			batch.begin();
 			batch.draw(pause_bg, 56, 95);
+            fontButton.getData().setScale(2.0f);
+            fontButton.setColor(Color.BLACK);
+			fontButton.draw(batch, Language.General.TAM_DUNG.getStr(), 500, 500);
 			batch.end();
 			stage4.draw();
 		}
@@ -939,22 +1035,24 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 			if(pAction != NONE) {
 				batch.begin();
 				batch.draw(dlgshovel, 160, 245);
+				fontButton.getData().setScale(1);
+				fontButton.setColor(Color.WHITE);
+				fontButton.draw(batch, Language.General.BN_MUON_NHO_CAY.getStr(), 200, 450);
 				batch.end();
 				stage3.draw();
-				if(btn_yes.isChecked()) {
-					clicked_(btn_yes);
-					updatepAction = false;
-					//System.out.println("touchPoint: " + touchPoint.x + " " + touchPoint.y);
-					player.setDestination(touchPoint, pAction, p_id, -1, -1);
-					Gdx.input.setInputProcessor(multiPlexer);
-				}
-				if(btn_no.isChecked()) {
-					clicked_(btn_no);
-					updatepAction = false;
-					//System.out.println("touchPoint: " + touchPoint.x + " " + touchPoint.y);
-					player.setDestination(touchPoint, NONE, p_id, -1, -1);					
-					Gdx.input.setInputProcessor(multiPlexer);
-				}
+//				if(btn_yes.isChecked()) {
+//					clicked_(btn_yes);
+//					updatepAction = false;
+//					player.setDestination(touchPoint, pAction, p_id, -1, -1);
+//					Gdx.input.setInputProcessor(multiPlexer);
+//				}
+//				if(btn_no.isChecked()) {
+//					clicked_(btn_no);
+//					updatepAction = false;
+//					//System.out.println("touchPoint: " + touchPoint.x + " " + touchPoint.y);
+//					player.setDestination(touchPoint, NONE, p_id, -1, -1);
+//					Gdx.input.setInputProcessor(multiPlexer);
+//				}
 			} else {
 				updatepAction = false;
 				player.setDestination(touchPoint, NONE, p_id, -1, -1);
@@ -970,7 +1068,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 							F.nof_wgod--;
 							plot.upgrade();
 							Audio.supgradeP.play(Audio.soundVolume);
-							Farm.payment.onToast("Nâng cấp thành công !", 0);
+							Farm.payment.onToast(Language.General.NANG_CAP_TC.getStr(), 0);
 						}
 					} else
 						action = NONE;
@@ -1013,21 +1111,21 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 			Gdx.input.setInputProcessor(stage4);
 		}
 		
-		if(expansion.isChecked()) {
-			expansion.setChecked(false);
-			Audio.btnClick.play(Audio.soundVolume);
-			
-			boolean flag = false;
-			if(nof_plot < F.level + 9) flag = true;
-			
-			if(!flag) {
-				Farm.payment.onDialog("Để mở ô đất hiện tại bạn phải đạt level " + (F.level + 1) + " !");
-			} else {
-				pause_();
-				renderExpansion = true;
-				expansionGarden = new ExpansionGarden(nof_plot, stage);
-			}
-		}
+//		if(expansion.isChecked()) {
+//			expansion.setChecked(false);
+//			Audio.btnClick.play(Audio.soundVolume);
+//
+//			boolean flag = false;
+//			if(nof_plot < F.level + 9) flag = true;
+//
+//			if(!flag) {
+//				Farm.payment.onDialog(String.format(Language.General.DAT_LV_MO_DAT.getStr(),(F.level + 1)));
+//			} else {
+//				pause_();
+//				renderExpansion = true;
+//				expansionGarden = new ExpansionGarden(nof_plot, stage);
+//			}
+//		}
 		
 		if(prev_garden.isChecked()) {
 			clicked_(prev_garden);
@@ -1114,13 +1212,13 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		
 		if(btn_gift_.isChecked()) {
 			clicked_(btn_gift_);
-			Farm.payment.onDialog("Chức năng này hiện đang được phát triển !");
+			Farm.payment.onDialog(Language.General.COMMING_SOON.getStr());
 		}
 		
-		if(recharge.isChecked()) {
-			clicked_(recharge);
-			Farm.payment.onRequestPayment();
-		}
+//		if(recharge.isChecked()) {
+//			clicked_(recharge);
+//			Farm.payment.onRequestPayment();
+//		}
 	}
 	
 	public void updateReady () {
@@ -1276,7 +1374,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 				case 1:
 					resetMission();
 					int year = (int) Math.ceil((nof_season + 1)/4f);
-					Farm.payment.onToast("Năm " + year + " - " + array_season[season], 1);
+					Farm.payment.onToast(Language.General.YEAR.getStr() + " " + year + " - " + array_season[season], 1);
 					break;
 				case 3:
 					addEmployee();
