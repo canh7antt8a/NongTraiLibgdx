@@ -17,7 +17,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "vn.sunnet.game.farm"
+        applicationId "com.leaptechjsc.game.happyfarm"
         minSdkVersion 9
         targetSdkVersion 27
         versionCode 1
@@ -78,7 +78,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'vn.sunnet.game.farm/vn.sunnet.game.farm.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.leaptechjsc.game.farm/AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.
