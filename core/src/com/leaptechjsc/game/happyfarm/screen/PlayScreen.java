@@ -77,6 +77,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 	private Button btn_pause, btn_shop, btn_warehouse, btn_shovel, btn_seed, btn_market;
 	private Button prev_garden, next_garden; /*expansion,*/ //btn_yes, btn_no;
 	private MyButton btnExpansion, btnRecharge, btnYes, btnNo;
+	private MyButton btnRewardedVideo;
 	private Button resume, setting, archivement, home;//, recharge;
 	private Button upgrade[], btn_employee, btn_mission, btn_gift, btn_gift_;
 	private Vector2 pPos, basePos1, basePos2;
@@ -135,7 +136,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 	private SButton btn_Title;
 	private BitmapFont fontButton;
 	@SuppressWarnings("unchecked")
-	public PlayScreen(Farm farm) {
+	public PlayScreen(final Farm farm) {
 		super();
 		this.farm = farm;
 		state = GAME_RUNNING;
@@ -217,6 +218,15 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 			}
 		};
 		btnNo.setPosition(555, 270);
+		texture = new Texture(Gdx.files.internal(path + "video_add_m.png"));
+		btnRewardedVideo = new MyButton(new TextureRegion(texture)) {
+			@Override
+			public void precessClicked() {
+				Farm.payment.loadRewardedVideoAd();
+			}
+		};
+		btnRewardedVideo.setPosition(1150, 350);
+		stage.addActor(btnRewardedVideo);
 
 		btn_pause = createButton("icon-pause.png", 1);
 		btn_pause.setPosition(1135, 575);
@@ -297,7 +307,8 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		stage.addActor(btn_gift);
 		stage.addActor(btn_gift_);
 //		stage.addActor(recharge);
-		stage.addActor(btnRecharge);
+
+//		stage.addActor(btnRecharge);//IAP
 		
 		stage.addActor(btn_pause);
 		stage.addActor(btn_shop);
@@ -727,7 +738,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		batch.draw(ic_coin, 195, 617);
 		renderExperience();
 		lvFont.draw(batch, Integer.toString(F.level), 170, 716, 50, Align.center, false);
-		coiFont.draw(batch, "" + F.coins, 334, 722, 150, Align.center, false);
+		coiFont.draw(batch, F.coins + "", 334, 722, 150, Align.center, false);
 	}
 	
 	//Ham ve thoi gian da qua trong 1 mua

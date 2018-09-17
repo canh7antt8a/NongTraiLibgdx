@@ -9,8 +9,10 @@ public class AndroidLauncher extends AndroidPayment {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		config.useGLSurfaceView20API18 = true;
-		initialize(new Farm(this), config);
+
+//		hideAdview();
+//		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+//		config.useGLSurfaceView20API18 = true;
+//		initialize(new Farm(this), config);
 	}
 }

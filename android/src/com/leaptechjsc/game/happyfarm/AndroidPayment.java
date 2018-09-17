@@ -4,12 +4,28 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.leaptechjsc.game.happyfarm.assets.Data;
 import com.leaptechjsc.game.happyfarm.assets.Language;
 import com.leaptechjsc.game.happyfarm.main.Farm;
@@ -18,8 +34,9 @@ import com.leaptechjsc.game.happyfarm.screen.MenuScreen;
 import com.leaptechjsc.game.happyfarm.screen.Payment;
 
 import java.util.Locale;
+import java.util.Random;
 
-public class AndroidPayment extends AndroidApplication implements Payment, Payment.OnPaymentListener {
+public class AndroidPayment extends AndroidApplication implements Payment, Payment.OnPaymentListener, RewardedVideoAdListener {
     public static final int EXIT_DIALOG = 0;
     public static final int ABOUT_DIALOG = 1;
     public static final int SHARE_DIALOG = 2;
@@ -36,6 +53,39 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
     public static final int QUIT_DIALOG = 13;
 
     public static final int DEFAULT_COINS_ITEM_POSTSCORE = 10000;
+
+//        private final String ADMOB_BANNER = "/6499/example/banner";//test
+//        private final String ADMOB_REWARDED_VIDEO = "/6499/example/rewarded-video";//test
+
+    private final String ADMOB_BANNER = "/93656639/37458912";
+    private final String ADMOB_REWARDED_VIDEO = "/93656639/59426173";
+
+    private PublisherAdView adView = null;
+    private RewardedVideoAd mRewardedVideoAd;
+
+    @Override
+    protected void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                        | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                        | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                        | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+//
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+
+
+        initADView();
+
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+
+//        hideAdview();
+    }
 
     @SuppressLint("HandlerLeak")
     private Handler mHandle = new Handler()
@@ -76,9 +126,11 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
                     break;
                 case ADVIEW_SHOW:
 //                    adview.loadAd();
+                    showAdview();
                     break;
                 case ADVIEW_HIDE:
 //                    adview.hide();
+                    hideAdview();
                     break;
                 case SOCIAL_SHOW:
 ////				DynamicTabLayout.show();
@@ -334,14 +386,127 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
         mHandle.sendMessage(msg);
     }
 
+    public void initADView(){
+        // Create the layout
+        RelativeLayout layout = new RelativeLayout(this);
+        // Create the libgdx View
+        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+        View gameView = initializeForView(new Farm(this), config);
+
+        // Create and setup the AdMob view
+        adView = new PublisherAdView(this);
+        adView.setAdSizes(AdSize.BANNER);
+        adView.setAdUnitId(ADMOB_BANNER);
+
+        // Create an ad request.
+        PublisherAdRequest adRequestBuilder = new PublisherAdRequest.Builder().addTestDevice("65A1B8F5E230F0557D9EB2871C2492E5").build();
+        layout.addView(gameView);
+
+        // Add the AdMob view
+        RelativeLayout.LayoutParams adParams =
+                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+        adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        adParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        layout.addView(adView, adParams);
+        adView.loadAd(adRequestBuilder);
+
+        setContentView(layout);
+
+        adView.setBackgroundColor(Color.BLACK);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+
+                Log.d("LIBGDX", "================> onAdLoaded");
+//                showAdview();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+
+                Log.d("LIBGDX", "================> onAdFailedToLoad");
+                hideAdview();
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+
+                Log.d("LIBGDX", "================> onAdOpened");
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+
+                Log.d("LIBGDX", "================> onAdLeftApplication");
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when when the user is about to return
+                // to the app after tapping on an ad.
+
+                Log.d("LIBGDX", "================> onAdClosed");
+            }
+        });
+    }
+
     @Override
     public void hideAdview() {
+        if(adView == null) return;
+        Log.d("LIBGDX", "================> hideAdview 1");
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (adView.isEnabled())
+                    adView.setEnabled(false);
+                if (adView.getVisibility() == View.VISIBLE)
+                    adView.setVisibility(View.INVISIBLE);
 
+                Log.d("LIBGDX", "================> hideAdview 2");
+            }
+        });
     }
 
     @Override
     public void showAdview() {
+        if(adView == null) return;
+        Log.d("LIBGDX", "================> showAdview 1");
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (!adView.isEnabled())
+                    adView.setEnabled(true);
+                if (adView.getVisibility() == View.INVISIBLE)
+                    adView.setVisibility(View.VISIBLE);
 
+                Log.d("LIBGDX", "================> showAdview 2");
+            }
+        });
+    }
+
+    @Override
+    public void loadRewardedVideoAd() {
+        try {
+            Log.d("LIBGDX", "================> loadRewardedVideoAd");
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mRewardedVideoAd.loadAd(ADMOB_REWARDED_VIDEO,
+                            new PublisherAdRequest.Builder().addTestDevice("65A1B8F5E230F0557D9EB2871C2492E5").build());
+                    mRewardedVideoAd.show();
+                }
+            });
+        }catch (Exception e){
+            Log.d("LIBGDX", "================>Exception loadRewardedVideoAd");
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -414,5 +579,59 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
     @Override
     public void onPaymentDeny(PaymentType type, int value) {
 
+    }
+
+    @Override
+    public void onRewarded(RewardItem reward) {
+//        Toast.makeText(this, "onRewarded! currency: " + reward.getType() + "  amount: " +
+//                reward.getAmount(), Toast.LENGTH_SHORT).show();
+        // Reward the user.
+
+        Log.d("LIBGDX", "================> onRewarded1   " + F.money);
+        if(reward != null){
+            int cc = new Random().nextInt(3) + 1;
+
+            Toast.makeText(this, String.format(Language.General.ADD_MONEY_VIEW_AD.getStr(), cc), Toast.LENGTH_SHORT).show();
+            F.money += cc;
+        }
+
+        Log.d("LIBGDX", "================> onRewarded2   " + F.money);
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+//        Toast.makeText(this, "onRewardedVideoAdLeftApplication",
+//                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+//        Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int errorCode) {
+//        Toast.makeText(this, "Video Failed To Load...", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+//        Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+        mRewardedVideoAd.show();
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+//        Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+//        Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+//        Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
     }
 }

@@ -82,6 +82,11 @@ public class DestopPayment implements Payment {
 	}
 
 	@Override
+	public void loadRewardedVideoAd() {
+		System.out.println("loadRewardedVideoAd");
+	}
+
+	@Override
 	public void onMCDialog() {
 		// TODO Auto-generated method stub
 		

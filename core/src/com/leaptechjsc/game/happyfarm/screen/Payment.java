@@ -33,10 +33,12 @@ public interface Payment {
 	public void onExit();
 	
 	public void onQuit();
-	
+
 	public void hideAdview();
 	
 	public void showAdview();
+
+	public void loadRewardedVideoAd();
 
 	/************************************************** functional method **************************************************/
 

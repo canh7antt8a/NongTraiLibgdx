@@ -3,317 +3,1364 @@ package com.leaptechjsc.game.happyfarm.assets;
 import com.leaptechjsc.game.happyfarm.nature.F;
 
 public class Language {
+
+//    String languageVN, languageEn, languageCN, languageKR, languageCam, languageThai, languageLaos, languageMyanmar, languageIndo;
     public enum LANGU {
         VN,
         EN,
         CHINA,
         KOREAN,
-        KHMER
+        CAMBODIA,
+        THAI,
+        LAOS,
+        MYANMAR,
+        INDO
     }
 
     public enum General {
         APP_NAME("Nông trại vui vẻ"
-                , "Happy farm"),
+                , "Happy farm"
+        ,"快乐农庄"
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         SETTING("Cài đặt"
-                , "Setting"),
+                , "Setting"
+        ,"设置"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MUSIC("Nhạc nền"
-                , "Music background"),
+                , "Music background"
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         SOUND("Nhạc hiệu ứng"
-                , "Sound effect"),
+                , "Sound effect"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BUY_GAME("Bạn có muốn mua 30.000 xu bằng tin nhắn giá 15.000 đồng không?\nHoặc nhấn \"khác\" để được mua ưu đãi hơn!"
-                , "Do you want to purchase 30.000 coins by a message costs only 15.000 vnd?\nOr click \"other\" button to get other promotions"),
+                , "Do you want to purchase 30.000 coins by a message costs only 15.000 vnd?\nOr click \"other\" button to get other promotions"
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         Information("Thông tin"
-                , "Information"),
+                , "Information"
+                ,"信息"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NOT_ENOUGH_MONEY("Bạn không đủ tiền"
-                , "You do not have enough money"),
+                , "You do not have enough money"
+                ,"你没有足够的钱"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NOT_ENOUGH_DIAMON("Bạn không đủ xu. Bạn có muốn mua xu không ?"
-                , "You do not have enough coin. Do you want to purchase more coins?"),
+                , "You do not have enough coin. Do you want to purchase more coins?"
+                ,"你没有足够的现金。你想购买更多现金吗？"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BUY_GAME_OFF_AD("Bạn có muốn mua game với 30.000 xu để tắt quảng cáo không ?"
-                , "Do you want to purchase 30.000 coins to turn off ads in game?"),
+                , "Do you want to purchase 30.000 coins to turn off ads in game?"
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         EXIT_GAME("Bạn có chắc chắn muốn thoát game đang chơi không?"
-                , "Are you sure to exit the game?"),
+                , "Are you sure to exit the game?"
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         SHARE_GAME("Chia sẻ game"
-                , "Share this game"),
+                , "Share this game"
+        ,"分享这个游戏"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         SHARE_GAME_USER("Bạn có muốn giới thiệu game này cho người thân không?"
-                , "Do you want to recommend this game to your family and friends?"),
+                , "Do you want to recommend this game to your family and friends?"
+        ,"你想把这个游戏推荐给亲戚吗？"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TITLE_SHARE("Chơi game này đi, game này hay lắm"
-                , "Let's play this game. It's fun."),
+                , "Let's play this game. It's fun."
+        ,"让我们玩这个游戏。 好有趣。"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         DOWNLOAD_HOT_GAME("Tải hot game"
-                , "Install hot game"),
+                , "Install hot game"
+        ,"下载热门游戏"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         WANT_DOWNLOAD_HOT_GAME("Bạn có muốn tải hot game khác không?"
-                , "Do you want to install other hot game?"),
+                , "Do you want to install other hot game?"
+                ,"你想下载其他热门游戏吗？"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         GAME_OTHER("Game khác"
-                , "Other games"),
+                , "Other games"
+        ,"其他游戏"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CLOSE("Đóng"
-                , "Close"),
+                , "Close"
+        ,"关"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         YES("Có"
-                , "Yes"),
+                , "Yes"
+        ,"同意"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NO("Không"
-                , "No"),
+                , "No"
+        ,"不同意"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         FLOWER("Hoa"
-                , "Flower"),
+                , "Flower"
+        ,"花"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_DONG_TIEN("Đồng tiền"
-                , "Gerbera"),
+                , "Gerbera"
+        ,"大丁草属"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_LILY("Lily"
-                , "Lily"),
+                , "Lily"
+        ,"圣母百合"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_SEN("Sen"
-                , "Lotus"),
+                , "Lotus"
+        ,"莲花"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_TU_CAU("Tú cầu"
-                , "Hydrangea"),
+                , "Hydrangea"
+        ,"绣球"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_CAM_CHUONG("Cẩm chướng"
-                , "Carnation"),
+                , "Carnation"
+        ,"康乃馨"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_LILY_LOA_KEN("Lily loa ken"
-                , "Lily"),
+                , "Lily"
+        ,"马蹄莲"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_TRANG_NGUYEN("Trạng nguyên"
-                , "Poinsettia"),
+                , "Poinsettia"
+        ,"一品红"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_HONG("Hồng"
-                , "Rose"),
+                , "Rose"
+        ,"玫瑰"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_HUONG_DUONG("Hướng dương"
-                , "Sunflower"),
+                , "Sunflower"
+        ,"向日葵"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_VIOLET("Violet"
-                , "Violet"),
+                , "Violet"
+        ,"堇菜属"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_BO_CONG_ANH("Bồ công anh"
-                , "Dandelion"),
+                , "Dandelion"
+        ,"蒲公英"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOA_TULIP("Tulip"
-                , "Tulip"),
+                , "Tulip"
+        ,"郁金香"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BI_NGO("Bí ngô"
-                , "Pumpkin"),
+                , "Pumpkin"
+        ,"南瓜"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CA_CHUA("Cà chua"
-                , "Tomato"),
+                , "Tomato"
+        ,"番茄"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CA_TIM("Cà tím"
-                , "Eggplant"),
+                , "Eggplant"
+        ,"茄子"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CAM("Cam"
-                , "Orange"),
+                , "Orange"
+        ,"桔子"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CHUOI("Chuối"
-                , "Banana"),
+                , "Banana"
+        ,"香蕉"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CU_CAI_TRANG("Củ cải trắng"
-                , "White radish"),
+                , "White radish"
+        ,"白萝卜"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         DUA_HAU("Dưa hấu"
-                , "Watermelon"),
+                , "Watermelon"
+        ,"西瓜"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NHO("Nho"
-                , "Grape"),
+                , "Grape"
+        ,"葡萄"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TAO("Táo"
-                , "Apple"),
+                , "Apple"
+        ,"苹果"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         XOAI("Xoài"
-                , "Mango"),
+                , "Mango"
+                ,"芒果"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         DAU_TAY("Dâu tây"
-                , "Strawberry"),
+                , "Strawberry"
+        ,"草莓"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         LE("Lê"
-                , "Pear"),
+                , "Pear"
+        ,"梨子"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NHAN_CONG("Nhân công"
-                , "Farmer"),
+                , "Farmer"
+        ,"劳动"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BAN_BAN_NONG_SAN("Bàn bán nông sản"
-                , "Farmer's kiosk"),
+                , "Farmer's kiosk"
+        ,"农场亭"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NGOC_MAY_MAN("Ngọc may mắn"
-                , "Lucky gem"),
+                , "Lucky gem"
+        ,"幸运的宝石"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         GIAY_BAO_DAM("Giấy bảo đảm"
-                , "Warranty certificate"),
+                , "Warranty certificate"
+        ,"保修凭证"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         GIA_MO_GD("Giá mở cửa giao dịch"
-                , "The opening price of the transaction"),
+                , "The opening price of the transaction"
+        ,"交易的开盘价"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CHUA_DC_MO_TT("Bạn chưa thể mở thị trường này được"
-                , "You can not open this market"),
+                , "You can not open this market"
+        ,"你还不能打开这个市场"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HTNV_TANG_LO_NUOC("Hoàn thành nhiệm vụ bạn sẽ được tặng \n một lọ nước nâng cấp !"
-                , "You will be given an upgrade level bottle \nwhen you complete the mission"),
+                , "You will be given an upgrade level bottle \nwhen you complete the mission"
+        ,"完成任务后，您将获得升级级别的瓶子"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TT_TAM_DUNG_GD("Trạng thái: Tạm dừng giao dịch"
-                , "Status: Transaction closed"),
+                , "Status: Transaction closed"
+        ,"状态：交易暂时关闭"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TT_DANG_GD("Trạng thái: Đang giao dịch"
-                , "Status: Transaction is progressing"),
+                , "Status: Transaction is progressing"
+        ,"状态：交易正在进行"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         GD_HOAN_THANH("Giao dịch hoàn thành"
-                , "Transaction completed"),
+                , "Transaction completed"
+                ,"交易完成"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NANG_CAP_TC("Nâng cấp thành công !"
-                , "Upgraded successfully!"),
+                , "Upgraded successfully!"
+        ,"升级成功！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         DAT_LV_MO_DAT("Để mở ô đất hiện tại bạn phải đạt level %d"
-                , "You need to get level %d to open a new block"),
+                , "You need to get level %d to open a new block"
+        ,"您需要获得级别%的才能打开新块"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         COMMING_SOON("Chức năng này hiện đang được phát triển !"
-                , "This function is developing!"),
+                , "This function is developing!"
+        ,"这个功能正在发展！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MO_RONG_TC("Mở rộng thành công !"
-                , "Expansion success!"),
+                , "Expansion success!"
+        ,"成功扩展！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MO_RONG_O_DAT("Mở rộng ô đất: "
-                , "Expansion new block: "),
+                , "Expansion new block: "
+        ,"展开新区块："
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HOAN_THANH_NV("Bạn đã hoàn thành nhiệm vụ"
-                , "You have completed the mission"),
+                , "You have completed the mission"
+        ,"你已经完成了任务"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NHIEM_VU("Nhiệm vụ"
-                , "Mission"),
+                , "Mission"
+        ,"任务"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         DAP_UNG_NC_LT_QG("Đáp ứng nhu cầu kho lương thực quốc gia"
-                , "Meet the demand of Nation Food Storage"),
+                , "Meet the demand of Nation Food Storage"
+        ,"满足国家食品储存的需求"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         DAT_SOI("Đất sỏi"
-                , "Gravel soil"),
+                , "Gravel soil"
+        ,"砾石土"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BUI_CAY_XANH("Bụi cây xanh"
-                , "Green bush"),
+                , "Green bush"
+        ,"绿色灌木"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BUI_CAY_TRANG("Bụi cây trắng"
-                , "White bush"),
+                , "White bush"
+        ,"白色的布什"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BUI_CAY_VANG("Bụi cây vàng"
-                , "Yellow bush"),
+                , "Yellow bush"
+        ,"黄色的布什"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BUI_CAY_DO("Bụi cây đỏ"
-                , "Red bush"),
+                , "Red bush"
+        ,"红色的布什"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BUI_CAY_TIM("Bụi cây tím"
-                , "Purple bush"),
+                , "Purple bush"
+        ,"紫色的布什"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NANG_CAP_TC_LEN_CAP("Nâng cấp thành công lên cấp %d!"
-                , "Upgraded successfully to level %d!"),
+                , "Upgraded successfully to level %d!"
+                ,"成功升级到％d级！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NANG_CAP_THAT_BAI("Nâng cấp thất bại !"
-                , "Upgrade failed!"),
+                , "Upgrade failed!"
+        ,"升级失败！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NANG_CAP_RUONG_D_LEN_CAP("Nâng cấp ruộng %d lên cấp!"
-                , "Upgrade farm %d to level!"),
+                , "Upgrade farm %d to level!"
+        ,"将农场％d升级到水平！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         KHO_CHUA_HAT_GIONG("Kho chứa hạt giống"
-                , "Store for seed"),
+                , "Store for seed"
+        ,"种子储存"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         THUE_1_NHAN_CONG("Thuê 1 nhân công tự động trồng trọt, chăn nuôi\nthu hoạch. Thuê trong 1 mùa"
-                , "Hire 1 farmer to plant, to breed and harvest. Hire in 1 farming season."),
+                , "Hire 1 farmer to plant, to breed and harvest. Hire in 1 farming season."
+        ,"雇佣1名农民种植，繁殖和收获。 在农耕季节租用。"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         THEM_1_CHO_BAN("Thêm 1 chỗ bán nông phẩm trong 1 mùa"
-                , "Add 1 more kiosk in 1 farming season"),
+                , "Add 1 more kiosk in 1 farming season"
+        ,"在一个季节添加一个销售农产品的地方"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NGOC_MM_TANG_TC("Ngọc may mắn tăng thêm 20%\nkhả năng thành công"
-                , "Lucky gem to get 20% of successful "),
+                , "Lucky gem to get 20% of successful "
+        ,"幸运宝石获得20％的成功"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NC_TB_VUONG_0_GIAM("Nếu nâng cấp vườn thất bại thì\nvườn không bị giảm cấp"
-                , "The farm will not be down level\nfor failing in upgrade level"),
+                , "The farm will not be down level\nfor failing in upgrade level"
+        ,"升级失败后，服务器场不会降级"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         KHO_CHUA_NONG_PHAM("Kho chứa nông phẩm"
-                , "Farm produce storage"),
+                , "Farm produce storage"
+        ,"农产品存储"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CHON_NP_DE_BAN("Chọn nông phẩm để bán"
-                , "Choose product to sell"),
+                , "Choose product to sell"
+        ,"选择要销售的产品"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MUA_GAME_TC("Chúc mừng bạn đã mua game thành công !"
-                , "Congratulation on purchasing game successfully!"),
+                , "Congratulation on purchasing game successfully!"
+        ,"祝贺您成功购买游戏！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         KHONG_DU_XU_MUA_("Bạn không đủ xu để mua game !"
-                , "You do not have enough coin to purchase this game!"),
+                , "You do not have enough coin to purchase this game!"
+        ,"你没有足够的现金购买这个游戏！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         YEAR("Năm"
-                , "Year"),
+                , "Year"
+        ,"年"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CHUNG_CU("Chung cư"
-                , "Condominium"),
+                , "Condominium"
+        ,"共管"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CONG_VIEN("Công viên"
-                , "Park"),
+                , "Park"
+        ,"公园"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CUA_HANG_CAFE("Cửa hàng\nCafe"
-                , "Coffee shop"),
+                , "Coffee shop"
+        ,"咖啡店"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CUA_HANG_FASTFOOD("Cửa hàng\nFastfood"
-                , "Fastfood\nRestaurant"),
+                , "Fastfood\nRestaurant"
+        ,"快餐店"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         KHACH_SAN("Khách sạn"
-                , "Hotel"),
+                , "Hotel"
+        ,"旅馆"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         KHO_LUONG_THUC("Kho lương thực"
-                , "National Food Storage"),
+                , "National Food Storage"
+        ,"国家食品储存"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NHA_GA("Nhà ga"
-                , "Station"),
+                , "Station"
+        ,"站"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NHA_HANG_NHAT("Nhà hàng\nNhật"
-                , "Japanese\nRestaurant"),
+                , "Japanese\nRestaurant"
+        ,"日本餐厅"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TRUONG_HOC("Trường học"
-                , "School"),
+                , "School"
+        ,"学校"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         VAN_PHONG("Văn phòng"
-                , "Office"),
+                , "Office"
+        ,"办公室"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         VUON_HOA("Vườn hoa"
-                , "Garden"),
+                , "Garden"
+        ,"花园"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         VUON_THU("Vườn thú"
-                , "Zoo"),
+                , "Zoo"
+        ,"动物园"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CAP_DO("Cấp độ: "
-                , "Level: "),
+                , "Level: "
+        ,"水平："
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN("Hướng dẫn"
-                , "Guide"),
+                , "Guide"
+        ,"指南"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_1("Cửa hàng: nơi bán hạt giống và vật phẩm"
-                , "Shop: sell seeds and products"),
+                , "Shop: sell seeds and products"
+        ,"商店：出售种子和产品"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_2("Kho chứa: giúp kiểm tra số cây trồng còn lại"
-                , "Storage: keeps the plants you have"),
+                , "Storage: keeps the plants you have"
+        ,"储存：保存您拥有的植物"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_3("Hạt giống: lấy hạt giống để trồng cây"
-                , "Seed: seeds to plant the tree"),
+                , "Seed: seeds to plant the tree"
+        ,"种子：种子种植树"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_4("Cái xẻng: giúp nhổ bỏ cây trồng"
-                , "Shovel: helps you to root up the trees"),
+                , "Shovel: helps you to root up the trees"
+        ,"铲：帮助你扎根树木"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_5("Người giúp việc: điều chỉnh thứ tự\nưu tiên trồng các loại cây"
-                , "Housekeeper: Helps you to arrange\nthe priority position of trees"),
+                , "Housekeeper: Helps you to arrange\nthe priority position of trees"
+        ,"管家：帮助您安排树木的优先位置"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_6("Cuộn giấy: Xem thông tin nhiệm vụ\nhiện tại"
-                , "Roll paper: to read the information\nof quests"),
+                , "Roll paper: to read the information\nof quests"
+        ,"卷纸：阅读使命信息"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_7("Thị trường sáng màu:\n    có thể giao dịch được"
-                , "The bright market:\n    be able to trade"),
+                , "The bright market:\n    be able to trade"
+        ,"光明的市场：可以交易"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_8("Thị trường tối màu:\n     chưa thể giao dich được"
-                , "The dark market:\n    Not be able to trade"),
+                , "The dark market:\n    Not be able to trade"
+        ,"黑市：无法交易"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_9("Kho lương thực quốc gia:\n  nhiệm vụ cần làm trước khi\n     hết thời gian quy định"
-                , "The National Food Storage:\n  Quest need to be done\n   before running out of time"),
+                , "The National Food Storage:\n  Quest need to be done\n   before running out of time"
+        ,"国家食品储存：任务需要在用完之前完成"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HUONG_DAN_10("Sau khi mở giao dịch\nbạn có thể tạm ngừng giao dịch nếu cần thiết"
-                , "After opening a trade\nyou can pause it (if it is necessary)"),
+                , "After opening a trade\nyou can pause it (if it is necessary)"
+        ,"开盘后你可以暂时关闭它（如果有必要的话）"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TAM_DUNG_MUA_BAN("Tạm dừng\nmua bán"
-                , ""),
+                , ""
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TIEP_TUC_MUA_BAN("Tiếp tục\nmua bán"
-                , ""),
+                , ""
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NONG_TRAI("Nông trại"
-                , "Farm"),
+                , "Farm"
+        ,"农场"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NONG_TRAI_DA_QUA("Nông trại đã qua %d mùa hạnh phục"
-                , "The farm has passed %d the happy season"),
+                , "The farm has passed %d the happy season"
+        ,"农场度过了快乐的季节"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         XD_NT_TO_DEP("Tiếp tục xây dựng nông trại to đẹp hơn nữa!"
-                , "Let's keep building a bigger and prettier farm!"),
+                , "Let's keep building a bigger and prettier farm!"
+        ,"让我们继续建设一个更大，更漂亮的农场！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         LEN_CAP("Lên cấp"
-                , "Level up"),
+                , "Level up"
+        ,"升级"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HT_NHIEM_VU("Hoàn thành nhiệm vụ"
-                , "Mission success"),
+                , "Mission success"
+        ,"完成任务"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         DANG_YEU("Đáng yêu"
-                , "Cute"),
+                , "Cute"
+        ,"可爱"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         GIAU_CO("Giàu có"
-                , "Wealth"),
+                , "Wealth"
+        ,"财富"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HIEU_KHACH("Hiếu khách"
-                , "Hospitable"),
+                , "Hospitable"
+        ,"待客"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         VUI_VE("Vui vẻ"
-                , "Cheerful"),
+                , "Cheerful"
+        ,"高兴"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HANH_PHUC("Hạnh phúc"
-                , "Happy"),
+                , "Happy"
+        ,"快乐"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         THAN_THIEN("Thân thiện"
-                , "Nice"),
+                , "Nice"
+        ,"可亲"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TANG_1_NC_THAN("Tặng 1 nước thần"
-                , ""),
+                , ""
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         QUA_TANG_TAN_GIA("QÙA TẶNG TÂN GIA"
-                , ""),
+                , ""
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         PHUT_GIAY_VUI_VE("Hi vọng bạn sẽ có\nnhững phút giây\nthật sự vui vẻ !"
-                , ""),
+                , ""
+        ,"希望你有幸福的时刻！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         HET_GIO_SD_NHAN_CONG("Hết thời gian sử dụng\nnhân công tự động.\n\n Để sử dụng \t\t\t\t\t\nhân công tự \nđộng bạn hãy vào cửa hàng \nđể mua nhé !"
-                , ""),
+                , ""
+        ,"你现在不能使用自动农民。 现在去购物！"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NUOC_THAN("Nước thần"
-                , ""),
+                , ""
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MUA_XUAN("Mùa xuân"
-                , "Spring"),
+                , "Spring"
+        ,"春天"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MUA_HA("Mùa hạ"
-                , "Summer"),
+                , "Summer"
+        ,"夏天"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MUA_THU("Mùa thu"
-                , "Autumn"),
+                , "Autumn"
+        ,"秋天"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MUA_DONG("Mùa đông"
-                , "Winter"),
+                , "Winter"
+        ,"冬季"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TAM_DUNG("Tạm dừng"
-                , "Pause"),
+                , "Pause"
+        ,"暂停"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NANG_CAP("Nâng cấp"
-                , "Upgrade"),
+                , "Upgrade"
+        ,"升级"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         CHI_PHI("Chi phí"
-                , "Cost"),
+                , "Cost"
+        ,"成本"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         SU_DUNG_THEM("Sử dụng thêm"
-                , "Use more"),
+                , "Use more"
+        ,"使用更多"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TANG("Tăng"
-                , "Up"),
+                , "Up"
+        ,"向上"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         GIAM("Giảm"
-                , "Down"),
+                , "Down"
+        ,"向下"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         KINH_NGHIEM_KHI_THU("Kinh nghiệm khi thu hoạch"
-                , "Experience in harvest"),
+                , "Experience in harvest"
+        ,"丰收经验"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         THOI_GIAN_KHI_THU("Thời gian khi thu hoạch"
-                , "Time to harvest"),
+                , "Time to harvest"
+        ,"是时候收获了"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MO_RONG_DAT("Mở rộng đất"
-                , "Expand the land"),
+                , "Expand the land"
+        ,"扩大土地"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         MO_RONG("Mở rộng"
-                , "Expand"),
+                , "Expand"
+        ,"扩大"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         BN_MUON_NHO_CAY("Bạn muốn nhổ cây đi hay không?"
-                , "Do you want to root up the tree?"),
+                , "Do you want to root up the tree?"
+        ,"你想要树根吗？"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         GIA_BAN_NHANH("Giá bán nhanh"
-                , ""),
+                , ""
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NHAP_SO_LUONG("Nhập số lượng"
-                , "Enter the quantity"),
+                , "Enter the quantity"
+        ,"输入数量"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TONG_SO_TIEN("Tổng số tiền"
-                , "Total Money"),
+                , "Total Money"
+        ,"总价"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         NAP_XU("Nạp xu"
-                , "Deposit coin"),
+                , "Deposit coin"
+        ,"存款现金"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         TXT_NHAN("Nhận"
-                , "Receive"),
+                , "Receive"
+        ,"接收"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         Confirm("Xác nhận"
-                , "Confirm"),
+                , "Confirm"
+        ,"确认"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
+        ADD_MONEY_VIEW_AD("Bạn nhận được %d xu!"
+                , "You recive %d money!"
+        ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""),
         Accept("Đồng ý"
-                , "Accept");
+                , "Accept"
+        ,"接受"
+                ,""
+                ,""
+                ,""
+                ,""
+                ,""
+                ,"");
 
-        String languageVN, languageEn;
+        String languageVN, languageEn, languageCN, languageKR, languageCam, languageThai, languageLaos, languageMyanmar, languageIndo;
 
-        General(String strVn, String strEn) {
+        General(String strVn
+                , String strEn
+                , String strCN
+                , String strKR
+                , String strCam
+                , String strThai
+                , String strLaos
+                , String strMy
+                , String strIndo) {
             this.languageVN = strVn;
             this.languageEn = strEn;
+            this.languageCN = strCN;
+            this.languageKR = strKR;
+            this.languageCam = strCam;
+            this.languageThai = strThai;
+            this.languageLaos = strLaos;
+            this.languageMyanmar = strMy;
+            this.languageIndo = strIndo;
         }
 
         public String getStr() {
             switch (F.language) {
                 case EN:
                     return languageEn;
+                case CHINA:
+                    return languageCN;
                 default:
                     return languageVN;
             }

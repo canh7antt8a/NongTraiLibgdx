@@ -59,11 +59,11 @@ public class Data {
 	}
 	
 	public static boolean showAdview() {
-		return pref.getBoolean("isShowAd", true);
+		return pref.getBoolean("isShowAd", false);
 	}
 	
 	public static void hideAdview() {
-		pref.putBoolean("isShowAd", false);
+		pref.putBoolean("isShowAd", true);
 		pref.flush();
 	}
 	
