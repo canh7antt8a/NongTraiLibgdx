@@ -1357,10 +1357,24 @@ public class Language {
 
         public String getStr() {
             switch (F.language) {
+//                case VN:
+//                    break;
                 case EN:
                     return languageEn;
                 case CHINA:
                     return languageCN;
+                case KOREAN:
+                    return languageKR;
+                case CAMBODIA:
+                    return languageCam;
+                case THAI:
+                    return languageThai;
+                case LAOS:
+                    return languageLaos;
+                case MYANMAR:
+                    return languageMyanmar;
+                case INDO:
+                    return languageIndo;
                 default:
                     return languageVN;
             }

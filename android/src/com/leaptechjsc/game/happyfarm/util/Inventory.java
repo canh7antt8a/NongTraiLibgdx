@@ -15,8 +15,8 @@
 
 package com.leaptechjsc.game.happyfarm.util;
 
-import com.game.ktip.util.Purchase;
-import com.game.ktip.util.SkuDetails;
+import com.leaptechjsc.game.happyfarm.util.Purchase;
+import com.leaptechjsc.game.happyfarm.util.SkuDetails;
 
 import java.util.ArrayList;
 import java.util.HashMap;

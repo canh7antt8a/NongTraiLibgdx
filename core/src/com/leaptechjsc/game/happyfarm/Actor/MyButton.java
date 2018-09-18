@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -202,6 +203,10 @@ public abstract class MyButton extends Group {
 		}
 		image.addListener(clickedListener);
 	}
+
+	public void addChild(Widget childWidget){
+        this.addActor(childWidget);
+    }
 
 	public MyButton(TextureRegion region, String name, String fontPath) {
 		this.name = name;
@@ -660,7 +665,7 @@ public abstract class MyButton extends Group {
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 			if (!isDisable) {
-				MyButton.this.addAction(Actions.alpha(0.5f));
+				MyButton.this.addAction(Actions.alpha(0.9f));
 			}
 
 			return super.touchDown(event, x, y, pointer, button);

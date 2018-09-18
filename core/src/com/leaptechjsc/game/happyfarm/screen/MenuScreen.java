@@ -31,6 +31,9 @@ public class MenuScreen extends BaseScreen {
 	public static boolean isShowAd;
 
 	private MyButton buttonVN, buttonEN;
+
+//	private Shop_IAP shop_iap;
+//	boolean isshop = false;
 	
 	public MenuScreen(Farm farm) {
 		super();
@@ -45,7 +48,7 @@ public class MenuScreen extends BaseScreen {
 		Texture texture = new Texture(Gdx.files.internal( "data/flag/vn.png"));
         TextureRegion region = new TextureRegion(texture);
 
-		buttonVN = new MyButton(region) {
+        buttonVN = new MyButton(region) {
 			@Override
 			public void precessClicked() {
 			    F.setLanguage(Language.LANGU.VN);
@@ -110,6 +113,9 @@ public class MenuScreen extends BaseScreen {
 		}
 		
 		F.money = Data.getMoney();
+
+//		shop_iap = new Shop_IAP(stage);
+//		isshop = true;
 	}
 	
 	public Button createButton(String name) {
@@ -144,6 +150,15 @@ public class MenuScreen extends BaseScreen {
 				Gdx.input.setInputProcessor(stage);
 			}
 		}
+
+//		if(isshop){
+//			shop_iap.render(batch);
+//			if(shop_iap.gc()){
+//				isshop = false;
+//				resume_();
+//				Gdx.input.setInputProcessor(stage);
+//			}
+//		}
 	}
 
 	public void updateButton() {

@@ -29,6 +29,7 @@ import com.leaptechjsc.game.stage.Mission;
 import com.leaptechjsc.game.stage.PUpgrade;
 import com.leaptechjsc.game.stage.Repository;
 import com.leaptechjsc.game.stage.Shop;
+import com.leaptechjsc.game.stage.Shop_IAP;
 import com.leaptechjsc.game.stage.Warehouse;
 
 import com.badlogic.gdx.Gdx;
@@ -135,6 +136,11 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 
 	private SButton btn_Title;
 	private BitmapFont fontButton;
+
+
+	private Shop_IAP shop_iap;
+	boolean isshop = false;
+
 	@SuppressWarnings("unchecked")
 	public PlayScreen(final Farm farm) {
 		super();
@@ -192,6 +198,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		btnYes = new MyButton(region[0], Language.General.YES.getStr()) {
 			@Override
 			public void precessClicked() {
+				Audio.btnClick.play(Audio.soundVolume);
 				if(action == ACTION_FLUCK) {
 					if (pAction != NONE) {
 						updatepAction = false;
@@ -208,6 +215,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		btnNo = new MyButton(region[0], Language.General.NO.getStr()) {
 			@Override
 			public void precessClicked() {
+				Audio.btnClick.play(Audio.soundVolume);
 				if(action == ACTION_FLUCK) {
 					if (pAction != NONE) {
 						updatepAction = false;
@@ -222,6 +230,9 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		btnRewardedVideo = new MyButton(new TextureRegion(texture)) {
 			@Override
 			public void precessClicked() {
+
+
+				Audio.btnClick.play(Audio.soundVolume);
 				Farm.payment.loadRewardedVideoAd();
 			}
 		};
@@ -272,12 +283,18 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 //		recharge = createButton("nap-xu.png", 0);
 //		recharge.setPosition(10, 660);
 
+		shop_iap = new Shop_IAP(stage);
+		isshop = false;
+
 		texture = Assets.manager.get(path + "nap-xu.png");
 		region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];
 		btnRecharge = new MyButton(region[0], Language.General.NAP_XU.getStr()) {
 			@Override
 			public void precessClicked() {
-				Farm.payment.onRequestPayment();
+				Audio.btnClick.play(Audio.soundVolume);
+                isshop = true;
+                pause_();
+				//Farm.payment.onRequestPayment();
 			}
 		};
 		btnRecharge.setColorText(Color.BLUE);
@@ -308,7 +325,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		stage.addActor(btn_gift_);
 //		stage.addActor(recharge);
 
-//		stage.addActor(btnRecharge);//IAP
+		stage.addActor(btnRecharge);//IAP
 		
 		stage.addActor(btn_pause);
 		stage.addActor(btn_shop);
@@ -835,6 +852,15 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		if(renderGuide) {
 			guide.render(batch);
 		}
+
+        if(isshop){
+            shop_iap.render(batch);
+            if(shop_iap.gc()){
+                isshop = false;
+                resume_();
+                Gdx.input.setInputProcessor(stage);
+            }
+        }
 	}
 	
 	public void renderRepository(int n) {
