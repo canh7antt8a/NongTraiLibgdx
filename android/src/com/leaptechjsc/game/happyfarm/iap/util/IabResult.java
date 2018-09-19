@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.leaptechjsc.game.happyfarm.util;
+package com.leaptechjsc.game.happyfarm.iap.util;
 
 /**
  * Represents the result of an in-app billing operation.

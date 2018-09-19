@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.leaptechjsc.game.happyfarm.util;
+package com.leaptechjsc.game.happyfarm.iap.util;
 
 /**
  * Exception thrown when something went wrong with in-app billing.

@@ -283,7 +283,6 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 //		recharge = createButton("nap-xu.png", 0);
 //		recharge.setPosition(10, 660);
 
-		shop_iap = new Shop_IAP(stage);
 		isshop = false;
 
 		texture = Assets.manager.get(path + "nap-xu.png");
@@ -293,6 +292,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 			public void precessClicked() {
 				Audio.btnClick.play(Audio.soundVolume);
                 isshop = true;
+				shop_iap = new Shop_IAP(stage);
                 pause_();
 				//Farm.payment.onRequestPayment();
 			}
@@ -325,7 +325,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		stage.addActor(btn_gift_);
 //		stage.addActor(recharge);
 
-		stage.addActor(btnRecharge);//IAP
+//		stage.addActor(btnRecharge);//IAP
 		
 		stage.addActor(btn_pause);
 		stage.addActor(btn_shop);
@@ -825,7 +825,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 	//Ve ra khi o trang thai PAUSE
 	public void presentPaused() {
 		batch.begin();
-		batch.draw(shadow, 0, 0);
+		batch.draw(shadow, 0, 0);// có khi nào, cái này che, rồi ko touch đc ko a, em thu xem sao nhé
 		batch.end();
 		
 		if(renderShop)	{
@@ -855,11 +855,11 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 
         if(isshop){
             shop_iap.render(batch);
-            if(shop_iap.gc()){
-                isshop = false;
-                resume_();
-                Gdx.input.setInputProcessor(stage);
-            }
+//            if(shop_iap.gc()){
+//                isshop = false;
+//                resume_();
+//                Gdx.input.setInputProcessor(stage);// sao lai de cai nay o day ???, e ko bt. e copy code thooi
+//            }
         }
 	}
 	
@@ -1334,7 +1334,17 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		}
 	}
 	
-	public void updatePaused() {		
+	public void updatePaused() {
+			if(isshop){
+				shop_iap.render(batch);
+				if(shop_iap.gc()){
+					isshop = false;
+					shop_iap.dispose();
+					shop_iap = null;
+					resume_();
+					Gdx.input.setInputProcessor(multiPlexer);// sao lai de cai nay o day ???, e ko bt. e copy code thooi
+				}
+			}
 		if(renderShop) {
 			if(shop.close[0].isChecked()) {
 				Audio.btnClick.play(Audio.soundVolume);

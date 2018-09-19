@@ -55,7 +55,7 @@ public class Shop_IAP{
 			MyButton bkgITem = new MyButton(new TextureRegion(new Texture(Gdx.files.internal("data/shopiap/lineIAP.png"))), (i + 1)*1000 + "") {
 				@Override
 				public void precessClicked() {
-
+//
 				}
 			};
 
@@ -84,11 +84,15 @@ public class Shop_IAP{
 
 		final ScrollPane scroller = new ScrollPane(scrollTable);
 
-		final Table table = new Table();
-		table.setSize(800, 400);
-		table.add(scroller).fill().expand();
-		this.stage.addActor(table);
-		table.setPosition(640 - 400, 320 - 200);
+//		final Table table = new Table();
+//		table.setSize(800, 400);
+//		table.add(scroller).fill().expand();
+//		this.stage.addActor(table);
+//		table.setPosition(640 - 400, 320 - 200);//day ah
+
+		scroller.setSize(800,400);
+		stage.addActor(scroller);
+		scroller.setPosition(640 - 400, 320 - 200);
 
 		Gdx.input.setInputProcessor(stage);
 	}
@@ -105,6 +109,11 @@ public class Shop_IAP{
 		if(Gdx.input.isKeyPressed(Keys.BACK)) {
 			gc = true;
 		}
+	}
+
+
+	public void dispose() {
+		stage.dispose();
 	}
 
 	public boolean gc() {

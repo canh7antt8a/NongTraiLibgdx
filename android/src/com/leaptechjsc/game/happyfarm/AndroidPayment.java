@@ -36,7 +36,7 @@ import com.leaptechjsc.game.happyfarm.screen.Payment;
 import java.util.Locale;
 import java.util.Random;
 
-public class AndroidPayment extends AndroidApplication implements Payment, Payment.OnPaymentListener, RewardedVideoAdListener {
+public class AndroidPayment extends AndroidApplication implements Payment, Payment.OnPaymentListener, RewardedVideoAdListener{//, IabBroadcastReceiver.IabBroadcastListener {
     public static final int EXIT_DIALOG = 0;
     public static final int ABOUT_DIALOG = 1;
     public static final int SHARE_DIALOG = 2;
@@ -80,9 +80,6 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
 
 
         initADView();
-
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        mRewardedVideoAd.setRewardedVideoAdListener(this);
 
 //        hideAdview();
     }
@@ -414,7 +411,7 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
 
         setContentView(layout);
 
-        adView.setBackgroundColor(Color.BLACK);
+//        adView.setBackgroundColor(Color.BLACK);
         adView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -455,6 +452,10 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
                 Log.d("LIBGDX", "================> onAdClosed");
             }
         });
+
+
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
     }
 
     @Override
@@ -493,6 +494,8 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
 
     @Override
     public void loadRewardedVideoAd() {
+        if(isLoadingVideo) return;
+        isLoadingVideo = true;
         try {
             Log.d("LIBGDX", "================> loadRewardedVideoAd");
             this.runOnUiThread(new Runnable() {
@@ -603,7 +606,8 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
 //        Toast.makeText(this, "onRewardedVideoAdLeftApplication",
 //                Toast.LENGTH_SHORT).show();
     }
-
+    int indexLoadVideo = 0;
+    boolean isLoadingVideo = false;
     @Override
     public void onRewardedVideoAdClosed() {
 //        Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
@@ -612,12 +616,21 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
     @Override
     public void onRewardedVideoAdFailedToLoad(int errorCode) {
 //        Toast.makeText(this, "Video Failed To Load...", Toast.LENGTH_SHORT).show();
+        if(indexLoadVideo >= 3){
+            isLoadingVideo = false;
+            return;
+        }
+        loadRewardedVideoAd();
+        indexLoadVideo++;
     }
 
     @Override
     public void onRewardedVideoAdLoaded() {
 //        Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
         mRewardedVideoAd.show();
+
+        indexLoadVideo = 0;
+        isLoadingVideo = false;
     }
 
     @Override
@@ -633,5 +646,8 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
     @Override
     public void onRewardedVideoCompleted() {
 //        Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
+
+        indexLoadVideo = 0;
+        isLoadingVideo = false;
     }
 }

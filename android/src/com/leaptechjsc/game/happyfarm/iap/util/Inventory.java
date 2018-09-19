@@ -13,10 +13,7 @@
  * limitations under the License.
  */
 
-package com.leaptechjsc.game.happyfarm.util;
-
-import com.leaptechjsc.game.happyfarm.util.Purchase;
-import com.leaptechjsc.game.happyfarm.util.SkuDetails;
+package com.leaptechjsc.game.happyfarm.iap.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +25,7 @@ import java.util.Map;
  * An Inventory is returned by such methods as {@link IabHelper#queryInventory}.
  */
 public class Inventory {
-    Map<String,SkuDetails> mSkuMap = new HashMap<String,SkuDetails>();
+    public Map<String,SkuDetails> mSkuMap = new HashMap<String,SkuDetails>();
     Map<String,Purchase> mPurchaseMap = new HashMap<String,Purchase>();
 
     Inventory() { }
