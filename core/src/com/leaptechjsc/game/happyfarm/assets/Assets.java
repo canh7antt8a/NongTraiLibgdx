@@ -210,6 +210,13 @@ public class Assets {
 		manager.load(fpath + "level.fnt", BitmapFont.class);
 		manager.load(fpath + "xu.fnt", BitmapFont.class);
 		manager.load(fpath + "font_normal.fnt", BitmapFont.class);
+		manager.load(fpath + "china/normal-cn.fnt", BitmapFont.class);
+//		manager.load(fpath + "china/normal-cn-2.fnt", BitmapFont.class);
+		manager.load(fpath + "thai/normal-thai.fnt", BitmapFont.class);
+		manager.load(fpath + "cam/normal-cam.fnt", BitmapFont.class);
+		manager.load(fpath + "kr/normal-kr.fnt", BitmapFont.class);
+		manager.load(fpath + "laos/normal-laos.fnt", BitmapFont.class);
+		manager.load(fpath + "mym/normal-mym.fnt", BitmapFont.class);
 		manager.load(fpath + "kho-chua.fnt", BitmapFont.class);
 		manager.load(fpath + "font-xanh.fnt", BitmapFont.class);
 		manager.load(fpath + "cua-hang.fnt", BitmapFont.class);

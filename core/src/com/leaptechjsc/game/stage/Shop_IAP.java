@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.leaptechjsc.game.happyfarm.Actor.MyButton;
+import com.leaptechjsc.game.happyfarm.main.Farm;
 import com.leaptechjsc.game.happyfarm.nature.F;
 
 import com.badlogic.gdx.Gdx;
@@ -51,13 +52,24 @@ public class Shop_IAP{
 		btnClose.setPosition(1040 - 80, 570 - 80 + 50);
 
 		final Table scrollTable = new Table();
-		for(int i =0 ; i < 20; i++){
-			MyButton bkgITem = new MyButton(new TextureRegion(new Texture(Gdx.files.internal("data/shopiap/lineIAP.png"))), (i + 1)*1000 + "") {
+
+		for(int i =0 ; i < F.strPrice.length; i++){
+		    final int index = i + 1;
+			MyButton bkgITem = new MyButton(new TextureRegion(new Texture(Gdx.files.internal("data/shopiap/lineIAP.png"))), F.strValue[i] + "", 20) {
 				@Override
 				public void precessClicked() {
-//
+				    F.moneyIAP = F.strValue[index];
+					Farm.payment.onBuyItemIAP(F.headerItemId + index);
 				}
 			};
+
+
+			Texture tex = new Texture(Gdx.files.internal("data/shop/icon-xu.png"));
+			TextureRegion[] textureRegions = TextureRegion.split(tex, tex.getWidth()/2, tex.getHeight())[0];
+			Image iconXu = new Image(textureRegions[0]);
+			bkgITem.addChild(iconXu);
+			iconXu.setPosition(bkgITem.getWidth()*.55f, 0);
+			iconXu.setScale(.75f);
 
 			int ide = i + 1;
 			if(ide > 7){
@@ -72,7 +84,7 @@ public class Shop_IAP{
 			bkgITem.addChild(iconBtn);
 			iconBtn.setPosition( bkgITem.getWidth()*.75f, bkgITem.getHeight()*.25f);
 
-			Label labelTemp = new Label("200", lblStyle);
+			Label labelTemp = new Label(F.strPrice[i], lblStyle);
 			labelTemp.setAlignment(Align.center);
 			labelTemp.setTouchable(Touchable.disabled);
 			bkgITem.addChild(labelTemp);

@@ -30,6 +30,11 @@ public class F {
 		335937694, 360857483, 399815530, 439598379, 480214579, 521672676, 563981217, 607148750, 651183821,
 		718779313, 787706260, 857977528, 929605979, 1002604479, 1076985892, 1152763081
 	};
+
+    public static String[] strPrice = {"0.99$", "1.99$", "2.99$", "5.99$", "11.99$"};
+    public static int[] strValue = {1000, 2010, 3020, 6050, 12500};
+    public static String headerItemId = "com.leaptechjsc.game.happyfarm.";
+    public static int moneyIAP = 0;
 	
 	public static Button createButton(String name) {
 		Texture texture = Assets.manager.get(name, Texture.class);
@@ -62,6 +67,32 @@ public class F {
     public static String strFontNormal = "data/font/font_normal.fnt";
 	public static void setLanguage(Language.LANGU lan){
 		language = lan;
+		switch (language){
+            case VN:
+            case EN:
+            case INDO:
+                strFontNormal = "data/font/font_normal.fnt";
+                break;
+            case CHINA:
+//                strFontNormal = "data/font/china/normal-cn-2.fnt";
+                strFontNormal = "data/font/china/normal-cn.fnt";
+                break;
+            case KOREAN:
+                strFontNormal = "data/font/kr/normal-kr.fnt";
+                break;
+            case CAMBODIA:
+                strFontNormal = "data/font/kr/normal-cam.fnt";
+                break;
+            case THAI:
+                strFontNormal = "data/font/kr/normal-thai.fnt";
+                break;
+            case LAOS:
+                strFontNormal = "data/font/kr/normal-laos.fnt";
+                break;
+            case MYANMAR:
+                strFontNormal = "data/font/kr/normal-mym.fnt";
+                break;
+        }
 	}
 	
 	public static void load() {

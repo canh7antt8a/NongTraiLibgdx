@@ -17,6 +17,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import java.util.ArrayList;
+
 public class MenuScreen extends BaseScreen {
 
 	private Farm farm;
@@ -30,7 +32,7 @@ public class MenuScreen extends BaseScreen {
 	private boolean isSetting = false, isGuide = false;
 	public static boolean isShowAd;
 
-	private MyButton buttonVN, buttonEN;
+	private ArrayList<MyButton> buttonLanguages;//, buttonEN;
 
 //	private Shop_IAP shop_iap;
 //	boolean isshop = false;
@@ -45,35 +47,106 @@ public class MenuScreen extends BaseScreen {
 //		stage = new Stage();
 //		stage.setViewport(viewport);
 
-		Texture texture = new Texture(Gdx.files.internal( "data/flag/vn.png"));
-        TextureRegion region = new TextureRegion(texture);
-
-        buttonVN = new MyButton(region) {
-			@Override
-			public void precessClicked() {
-			    F.setLanguage(Language.LANGU.VN);
-                buttonEN.setColor(Color.WHITE);
-                buttonVN.setColor(Color.YELLOW);
-			}
-		};
-		buttonVN.setPosition(buttonVN.getWidth()/2, buttonVN.getHeight()/2);
-
-        Texture texture2 = new Texture(Gdx.files.internal( "data/flag/en.png"));
-        TextureRegion region2 = new TextureRegion(texture2);
-
-        buttonEN = new MyButton(region2) {
-            @Override
-            public void precessClicked() {
-                F.setLanguage(Language.LANGU.EN);
-                buttonVN.setColor(Color.WHITE);
-                buttonEN.setColor(Color.YELLOW);
-            }
+        final Language.LANGU[] langus ={
+            Language.LANGU.VN,
+                    Language.LANGU.EN,
+                    Language.LANGU.CHINA,
+                    Language.LANGU.KOREAN,
+                    Language.LANGU.CAMBODIA,
+                    Language.LANGU.THAI,
+                    Language.LANGU.LAOS,
+                    Language.LANGU. MYANMAR,
+                    Language.LANGU.INDO
         };
+		String[] strFlag = {"data/flag/vn.png"
+                , "data/flag/en.png"
+                , "data/flag/china.png"
+                , "data/flag/south-korea.png"
+                , "data/flag/cambodia.png"
+                , "data/flag/thailand.png"
+                , "data/flag/laos.png"
+                , "data/flag/myanmar.png"
+                , "data/flag/indonesia.png"};
+        buttonLanguages = new ArrayList<MyButton>();
+		for(int i = 0; i < strFlag.length; i++){
+		    Texture texture = new Texture(Gdx.files.internal( strFlag[i]));
+		    TextureRegion region = new TextureRegion(texture);
 
-        buttonVN.setColor(Color.YELLOW);
-        buttonEN.setPosition(buttonVN.getX() + buttonVN.getWidth() + 10, buttonVN.getY());
-		stage.addActor(buttonVN);
-		stage.addActor(buttonEN);
+		    final int inde = i;
+		    final  MyButton btnLang = new MyButton(region) {
+                @Override
+                public void precessClicked() {
+                    for(int j = 0; j < buttonLanguages.size(); j++){
+                        if(inde == j){
+                            buttonLanguages.get(j).setColor(Color.WHITE);
+                            F.setLanguage(langus[j]);
+                            Data.setLanguageSave();
+                        }else
+                            buttonLanguages.get(j).setColor(Color.GRAY);
+                    }
+                }
+            };
+            buttonLanguages.add(btnLang);
+		    stage.addActor(btnLang);
+
+		    btnLang.setPosition((i + 0.5f)*btnLang.getWidth() + i*10, F.viewportHeight - btnLang.getHeight());
+        }
+
+        int langSaved = Data.getLangugeSaved();
+		if(langSaved < 0){
+            int langCur = Farm.payment.getLanguageCurrent();
+            if(langCur == -1){
+                F.setLanguage(langus[1]);
+                for(int j = 0; j < buttonLanguages.size(); j++){
+                    if(1 == j){
+                        buttonLanguages.get(j).setColor(Color.WHITE);
+                        F.setLanguage(langus[j]);
+                    }else
+                        buttonLanguages.get(j).setColor(Color.GRAY);
+                }
+            }else{
+                F.setLanguage(langus[langCur]);
+                for(int j = 0; j < buttonLanguages.size(); j++){
+                    if(langCur == j){
+                        buttonLanguages.get(j).setColor(Color.WHITE);
+                        F.setLanguage(langus[j]);
+                    }else
+                        buttonLanguages.get(j).setColor(Color.GRAY);
+                }
+            }
+        }else{
+		    if(langSaved < langus.length) {
+                F.setLanguage(langus[langSaved]);
+                Data.setLanguageSave();
+            }
+        }
+
+//        buttonVN = new MyButton(region) {
+//			@Override
+//			public void precessClicked() {
+//			    F.setLanguage(Language.LANGU.VN);
+//                buttonEN.setColor(Color.WHITE);
+//                buttonVN.setColor(Color.YELLOW);
+//			}
+//		};
+//		buttonVN.setPosition(buttonVN.getWidth()/2, buttonVN.getHeight()/2);
+//
+//        Texture texture2 = new Texture(Gdx.files.internal( "data/flag/en.png"));
+//        TextureRegion region2 = new TextureRegion(texture2);
+//
+//        buttonEN = new MyButton(region2) {
+//            @Override
+//            public void precessClicked() {
+//                F.setLanguage(Language.LANGU.KOREAN);
+//                buttonVN.setColor(Color.WHITE);
+//                buttonEN.setColor(Color.YELLOW);
+//            }
+//        };
+//
+//        buttonVN.setColor(Color.YELLOW);
+//        buttonEN.setPosition(buttonVN.getX() + buttonVN.getWidth() + 10, buttonVN.getY());
+//		stage.addActor(buttonVN);
+//		stage.addActor(buttonEN);
 		
 		btn_info = createButton("thong-tin.png");
 		btn_info.setPosition(105, 190);
@@ -117,7 +190,7 @@ public class MenuScreen extends BaseScreen {
 //		shop_iap = new Shop_IAP(stage);
 //		isshop = true;
 	}
-	
+
 	public Button createButton(String name) {
 		Texture texture = new Texture(Gdx.files.internal(pathTexture + name));
 		TextureRegion[] region = TextureRegion.split(texture, texture.getWidth()/2, texture.getHeight())[0];

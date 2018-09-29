@@ -86,6 +86,15 @@ public class DestopPayment implements Payment {
 		System.out.println("loadRewardedVideoAd");
 	}
 
+    @Override
+    public int getLanguageCurrent() {
+        return 0;
+    }
+
+    @Override
+	public void onBuyItemIAP(String itemId){
+
+	}
 	@Override
 	public void onMCDialog() {
 		// TODO Auto-generated method stub

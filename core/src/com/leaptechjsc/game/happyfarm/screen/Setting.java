@@ -51,7 +51,6 @@ public class Setting {
 		btnclose.setPosition(1090, 575);
 
 
-
         stage.setViewport(sta.getViewport());
 
 		stage.addActor(btnSound);

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.LocaleList;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.leaptechjsc.game.happyfarm.assets.Data;
 import com.leaptechjsc.game.happyfarm.assets.Language;
+import com.leaptechjsc.game.happyfarm.iap.InAppHelper;
 import com.leaptechjsc.game.happyfarm.main.Farm;
 import com.leaptechjsc.game.happyfarm.nature.F;
 import com.leaptechjsc.game.happyfarm.screen.MenuScreen;
@@ -63,6 +65,8 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
     private PublisherAdView adView = null;
     private RewardedVideoAd mRewardedVideoAd;
 
+    private static InAppHelper inAppHelper;
+
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +85,9 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
 
         initADView();
 
-//        hideAdview();
+
+        inAppHelper = new InAppHelper(this);
+        inAppHelper.onCreate();
     }
 
     @SuppressLint("HandlerLeak")
@@ -509,6 +515,43 @@ public class AndroidPayment extends AndroidApplication implements Payment, Payme
         }catch (Exception e){
             Log.d("LIBGDX", "================>Exception loadRewardedVideoAd");
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int getLanguageCurrent() {
+        Log.d("LIBGDX", "================> getLanguageCurrent:   "+ Locale.getDefault().getLanguage() + "   22   " + Locale.getDefault().getDisplayLanguage());
+        String lan = Locale.getDefault().getLanguage();
+        switch (lan){
+            case "vi":
+                return 0;
+            case "en":
+                return 1;
+            case "zh":
+            case "cn":
+                return 2;
+            case "kr":
+            case "k0":
+                return 3;
+            case "cam":
+                return 4;
+            case "th":
+                return 5;
+            case "laos":
+                return 6;
+            case "my":
+                return 7;
+            case "in":
+                return 8;
+        }
+
+        return -1;
+    }
+
+    @Override
+    public void onBuyItemIAP(String itemId){
+        if(inAppHelper != null) {
+            inAppHelper.buyItem(itemId);
         }
     }
 

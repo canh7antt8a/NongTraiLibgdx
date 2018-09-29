@@ -325,7 +325,7 @@ public class PlayScreen extends BaseScreen implements InputProcessor {
 		stage.addActor(btn_gift_);
 //		stage.addActor(recharge);
 
-//		stage.addActor(btnRecharge);//IAP
+		stage.addActor(btnRecharge);//IAP
 		
 		stage.addActor(btn_pause);
 		stage.addActor(btn_shop);

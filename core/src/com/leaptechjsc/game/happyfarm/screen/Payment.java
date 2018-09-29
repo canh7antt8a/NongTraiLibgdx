@@ -42,6 +42,10 @@ public interface Payment {
 
 	/************************************************** functional method **************************************************/
 
+	public int getLanguageCurrent();
+
+	public void onBuyItemIAP(String itemId);
+
 	/** Request for payment dialog */
 	public void onRequestPayment ();
 

@@ -2,6 +2,7 @@ package com.leaptechjsc.game.happyfarm.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.leaptechjsc.game.happyfarm.nature.F;
 
 public class Data {
 	
@@ -13,8 +14,58 @@ public class Data {
 	public static float seasonTime;
 	public static String defVal = "none", defPos = "717:150";
 	
-	public static final Preferences pref = Gdx.app.getPreferences("vn.sunnet.game.farm." + name);//Farm.payment.onLoadPreferences("vn.sunnet.game.farm", name);
+	public static final Preferences pref = Gdx.app.getPreferences("com.leaptechjsc.game.happyfarm." + name);//Farm.payment.onLoadPreferences("vn.sunnet.game.farm", name);
 	public static final Preferences prefs = Gdx.app.getPreferences("name");
+
+	public static int getLangugeSaved(){
+		return pref.getInteger("myLanguage", -1);
+	}
+
+	public static void setLanguageSave(){
+//		public enum LANGU {
+//			VN,
+//			EN,
+//			CHINA,
+//			KOREAN,
+//			CAMBODIA,
+//			THAI,
+//			LAOS,
+//			MYANMAR,
+//			INDO
+//		}
+		int iLang = -1;
+		switch (F.language){
+			case VN:
+				iLang = 0;
+				break;
+			case EN:
+				iLang = 1;
+				break;
+			case CHINA:
+				iLang = 2;
+				break;
+			case KOREAN:
+				iLang = 3;
+				break;
+			case CAMBODIA:
+				iLang = 4;
+				break;
+			case THAI:
+				iLang = 5;
+				break;
+			case LAOS:
+				iLang = 6;
+				break;
+			case MYANMAR:
+				iLang = 7;
+				break;
+			case INDO:
+				iLang = 8;
+				break;
+		}
+		pref.putInteger("myLanguage", iLang);
+		pref.flush();
+	}
 	
 	// Luu lai gia tri va ma hoa
 	public static int getMoney() {
@@ -24,6 +75,7 @@ public class Data {
 	public static void addMoney(int addMoney) {
 		int money = getMoney() + addMoney;
 		pref.putInteger("myMoney", money);
+		pref.flush();
 	}
 	
 	public static void saveMoney(int xu) {

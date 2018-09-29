@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.leaptechjsc.game.happyfarm.assets.Data;
 import com.leaptechjsc.game.happyfarm.iap.util.IabHelper;
 import com.leaptechjsc.game.happyfarm.iap.util.IabResult;
 import com.leaptechjsc.game.happyfarm.iap.util.Inventory;
 import com.leaptechjsc.game.happyfarm.iap.util.Purchase;
 import com.leaptechjsc.game.happyfarm.iap.util.SkuDetails;
+import com.leaptechjsc.game.happyfarm.nature.F;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,8 +21,8 @@ import java.util.ArrayList;
 
 public class InAppHelper {
     private final String TAG = InAppHelper.class.getSimpleName();
-    public String iap_key= "";//"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvcWYNdyV/TtsVYPqzAyHNNw7NQtFLyTusx5sMfp4I4NmYt+ZSEpfdoTV+xK3iOPmfedWpXCZEOteScNf7fGFmTRrEfRH45I75Gnn7RaXCUHGpp7fFkvFCmWhtPw4IKZjkbnxicmzrKpkKp6mKuwKJVLe2mKFqTqvv03kg9pEBmKaWMXuq+vVXPn9BnWTyAtwfrlUkJicGzYgRboqRA8poAq1J9vacCk7cl74ccYq9Ant7lRS+maz+1Hj1oOiIVxGIgK0b/kdaacdapl/+j8iPUpLHRjPqqjPYkp0tmIX9LhG79GuwgBUUggmFSQKGKDIjSHDLqZafPxslKtKWPSF2wIDAQAB";
-//    public List<String> SKU_ITEM = new ArrayList<String>();
+    public String iap_key= "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqMMaJWm/rtWDhquM8i4qRK9fIKrRDPPrDajO3eP9HRaqCS9DsvpvermvsyLudmQSfKzVXt+f2xOXvD4IPjTWnovPAGXPnfrmHvDsKDz5crvoAB6ATZWoHiUPVEyUseXK2atuvc0LpReSVTAZvu08hYD7L3aMFiQU8S5vFen4RHKSdq29OhSDaQQlAZXfWA3bbaYDYu3twtqBvwDpCmz9Ljfh4kQ341Jf90ZVve+nAcOP4tpuVOXKc6/e+7adpAnGFS0vH1B4wJE/U7K30jcdrrGF/QCxSAsknIonbZB+w6jqqWeENnPwMEBrJRjP+rZwQcqkeV5qaI2Wn6EeZ89piQIDAQAB";
+    //    public List<String> SKU_ITEM = new ArrayList<String>();
     IabHelper.OnConsumeFinishedListener mConsumeFinishedListener =
             new IabHelper.OnConsumeFinishedListener() {
                 public void onConsumeFinished(Purchase purchase,
@@ -65,14 +67,19 @@ public class InAppHelper {
 
                 if (result.isFailure()) {
                     Log.v(TAG, "onIabPurchaseFinished -> isFailure");
+                    F.moneyIAP = 0;
                     return;
                 } else {
-                	 Log.v(TAG, "onIabPurchaseFinished -> success");
+                	 Log.v(TAG, "onIabPurchaseFinished -> success:  " + F.moneyIAP);
                     try {
-                        JSONObject info = new JSONObject();
-                        info.put("signature", purchase.getSignature());
-                        info.put("signedData", purchase.getOriginalJson());
+//                        JSONObject info = new JSONObject();
+//                        info.put("signature", purchase.getSignature());
+//                        info.put("signedData", purchase.getOriginalJson());
 //                        GameActivity.save_ins.androidCallC(66, info.toString());//gửi sang cocos
+                        F.money += F.moneyIAP;
+                        F.moneyIAP = 0;
+
+                        Log.d("LIBGDX", "================> IAP   " + F.moneyIAP);
                         mHelper.consumeAsync(purchase, mOnConsumeFinishedListener);
                     }catch (Exception e){
                         e.printStackTrace();
